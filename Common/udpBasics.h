@@ -4,9 +4,6 @@
 #include <WS2tcpip.h> //for inet_pton function
 #include<string>
 
-//#define LOCAL_IP "127.0.0.1"
-//#define CLIENT_IP "" //---------temp
-//#define PORT_SERVER 8210
 #define BACKLOG 2 ///////--------todo check how many
 
 constexpr unsigned int EMPTY_PORT = 1;
