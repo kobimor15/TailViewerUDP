@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream> //for files
 #include <sstream>
+#include <thread>/* include for sleep */
 
 constexpr char CLIENT_IP[] = "101.156.216.111";
 constexpr unsigned int CLIENT_PORT = 9876;
@@ -31,13 +32,26 @@ int main()
 	{
 		std::cout << "Press any key to send message.\n";
 		getchar();
-		
 		std::stringstream sstream;
-		sstream << "CLIENT_SENDING_MSG" << m_number_for_debug;
+		sstream << "CLIENT_SENDING_MSG_" << m_number_for_debug;
 		client.sendMessageToServer(sstream.str());
-		m_number_for_debug++;		
+		std::cout << "Message #" << m_number_for_debug << " sent.\n";
+		m_number_for_debug++;
 
-		std::cout << "Message sent.\n";
+		/* ----------START: test for sending 5000 messages, waiting 10ms between each message. ---------- */
+		//for (int i = 0; i < 5000; i++)
+		//{
+		//	std::stringstream sstream;
+		//	sstream << "CLIENT_SENDING_MSG_" << m_number_for_debug;
+		//	client.sendMessageToServer(sstream.str());
+		//	std::cout << "Message #" << m_number_for_debug << " sent.\n";
+		//	m_number_for_debug++;
+		//	std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		//}
+		//getchar();
+		/* ----------END: test for sending 5000 messages, waiting 10ms between each message. ---------- */
+	
+
 	}
 	std::cout << "Client sent the message";
 }
