@@ -38,7 +38,7 @@ int main()
 		std::cout << "Message #" << m_number_for_debug << " sent.\n";
 		m_number_for_debug++;
 
-		/* ----------START: test for sending 5000 messages, waiting 10ms between each message. ---------- */
+		/******************* START: test for sending 5000 messages, waiting 10ms between each message. ****************** */
 		//for (int i = 0; i < 5000; i++)
 		//{
 		//	std::stringstream sstream;
@@ -49,9 +49,7 @@ int main()
 		//	std::this_thread::sleep_for(std::chrono::milliseconds(10));
 		//}
 		//getchar();
-		/* ----------END: test for sending 5000 messages, waiting 10ms between each message. ---------- */
-	
-
+		/******************* END: test for sending 5000 messages, waiting 10ms between each message. ****************** */
 	}
 	std::cout << "Client sent the message";
 }
