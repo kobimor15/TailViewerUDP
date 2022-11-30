@@ -2,9 +2,7 @@
 #include <iostream>
 #include <WinSock2.h>
 #include <WS2tcpip.h> //for inet_pton function
-#include<string>
-
-#define BACKLOG 2 ///////--------todo check how many
+#include <string>
 
 constexpr unsigned int EMPTY_PORT = 1;
 constexpr char EMPTY_IP[] = "0.0.0.0";
@@ -15,6 +13,7 @@ namespace udp
 	constexpr int IP_SIZE = 16;
 	constexpr int PORT_SIZE = 4;
 
+	/* ---------- CommunicationInfo Struct ---------- */
 	struct CommunicationInfo
 	{
 		//C-tor
@@ -24,8 +23,6 @@ namespace udp
 			remotePort = remote_Port;
 			strcpy_s(localIP, local_IP.c_str());
 			strcpy_s(remoteIP, remote_IP.c_str());
-			//memcpy(localIP, local_IP, IP_SIZE);
-			//memcpy(remoteIP, remote_IP, IP_SIZE);
 		}
 	public:
 		char localIP[IP_SIZE];
@@ -34,31 +31,19 @@ namespace udp
 		unsigned int remotePort;
 	};
 
-	struct Message
-	{
-	public:
-		char* m_originalMessage;
-		char* m_cleanMessage;
-		char* m_senderIP;
-		int m_senderPort;
-	};
-
-	enum Instructions
-	{
-
-	};
-
+	/* ---------- udpBasics Class ---------- */
 	class udpBasics
 	{
-
 	public:
 		void closeSocket(SOCKET socket);
-		
+		struct sockaddr_in getRemoteAddress() //Getter
+		{
+			return m_remote_address;
+		}
+
 	protected:
 		SOCKET m_local_socket = INVALID_SOCKET;
 		struct sockaddr_in m_local_address;
 		struct sockaddr_in m_remote_address;
-
 	};
 }
-

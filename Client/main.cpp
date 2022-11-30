@@ -3,8 +3,8 @@
 #include <fstream> //for files
 #include <sstream>
 
-#define CLIENT_IP "101.156.216.111"
-#define CLIENT_PORT 9876
+constexpr char CLIENT_IP[] = "101.156.216.111";
+constexpr unsigned int CLIENT_PORT = 9876;
 
 int main()
 {
@@ -33,13 +33,9 @@ int main()
 		getchar();
 		
 		std::stringstream sstream;
-
-		/*sstream << "CLIENT_SENDING_MSG" << m_number_for_debug << "101.156.216.5629876";*/
-		sstream << "CLIENT_SENDING_MSG" << m_number_for_debug << CLIENT_IP << CLIENT_PORT; //template is: CLIENT_SENDING_MSG101.156.216.5629876
+		sstream << "CLIENT_SENDING_MSG" << m_number_for_debug;
 		client.sendMessageToServer(sstream.str());
-		m_number_for_debug++;
-		/*client.sendMessageToServer("CLIENT_SENDING_MSG101.156.216.5629876");*/
-		
+		m_number_for_debug++;		
 
 		std::cout << "Message sent.\n";
 	}
