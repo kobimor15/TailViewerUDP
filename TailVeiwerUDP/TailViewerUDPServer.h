@@ -2,6 +2,13 @@
 #include "..\Common\udpBasics.h"
 #include <fstream> //for files
 #include <map>
+#include <string>
+#include <sstream>
+#include <filesystem>
+#include <ctime>
+
+namespace fs = std::filesystem;
+using namespace std;
 
 namespace udp
 {
@@ -11,6 +18,8 @@ namespace udp
 		void init(CommunicationInfo* commuInfo);
 		void recvMessageFrom();
 		void writeMessageToFile(std::string message, std::ofstream* file) const;
+
+		static void runTailViewerServer(); //Starts the server, includ initializing and all.
 
 		std::map<std::string, std::ofstream*> fileDescriptors;
 
