@@ -1,11 +1,11 @@
 /****************************** Module Header ******************************\
-* Module Name:  TailViewerService.h
-* Project:      Service-TailViewer
+* Module Name:  SampleService.h
+* Project:      sample-service
 * Copyright (c) Microsoft Corporation.
 * Copyright (c) Tromgy (tromgy@yahoo.com)
 *
-* Provides a TailViewer server service class that derives from the service base class -
-* CServiceBase. The TailViewer server service logs the service start and stop
+* Provides a sample service class that derives from the service base class -
+* CServiceBase. The sample service logs the service start and stop
 * information to the Application event log, and shows how to run the main
 * function of the service in a thread pool worker thread.
 *
@@ -20,8 +20,7 @@
 
 #pragma once
 
-#include "..\TailVeiwerUDP\TailViewerUDPServer.h"
-#include "../Service-Base/ServiceBase.h"
+#include <ServiceBase.h>
 #include <string>
 
 // Default service start options.
@@ -46,30 +45,27 @@
 #define PROCESS_CMD              L"run"
 
 // Service name
-#define SERVICE_NAME             L"TailViewerServer-service"
+#define SERVICE_NAME             L"sample-service"
 
 // Service name as displayed in MMC
-#define SERVICE_DISP_NAME        L"TailViewer Server service"
+#define SERVICE_DISP_NAME        L"Sample service"
 
 // Service description as displayed in MMC
-#define SERVICE_DESC             L"This is a Server for TailViewer to receive UPD messages."
+#define SERVICE_DESC             L"This is a sample service written in C++ using a class dervied from CServiceBase."
 
 using namespace std;
 
-/// <summary>
-/// class TailViewerService
-/// </summary>
-class TailViewerService : public CServiceBase
+class CSampleService: public CServiceBase
 {
-public:
-    TailViewerService(PCWSTR pszServiceName,
-        BOOL fCanStop = TRUE,
-        BOOL fCanShutdown = TRUE,
-        BOOL fCanPauseContinue = FALSE
-    );
-    ~TailViewerService();
+  public:
+    CSampleService(PCWSTR pszServiceName,
+                   BOOL fCanStop = TRUE,
+                   BOOL fCanShutdown = TRUE,
+                   BOOL fCanPauseContinue = FALSE
+                  );
+    ~CSampleService();
 
-    virtual void OnStart(DWORD dwArgc, PWSTR* pszArgv);
+    virtual void OnStart(DWORD dwArgc, PWSTR *pszArgv);
 
     virtual void OnStop();
 
@@ -77,8 +73,9 @@ public:
 
     void Run();
 
-private:
+  private:
     BOOL m_bIsStopping;
     HANDLE m_hHasStoppedEvent;
     wstring m_wstrParam;
 };
+

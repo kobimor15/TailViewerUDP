@@ -1,13 +1,11 @@
-#include "TailViewerService.h"
-
 /****************************** Module Header ******************************\
-* Module Name:  TailViewerService.cpp
-* Project:      Service-TailViewer
+* Module Name:  SampleService.cpp
+* Project:      sample-service
 * Copyright (c) Microsoft Corporation.
 * Copyright (c) Tromgy (tromgy@yahoo.com)
 *
-* Provides a TailViewer server service class that derives from the service base class -
-* CServiceBase. The TailViewer server service logs the service start and stop
+* Provides a sample service class that derives from the service base class -
+* CServiceBase. The sample service logs the service start and stop
 * information to the Application event log, and shows how to run the main
 * function of the service in a thread pool worker thread.
 *
@@ -22,7 +20,7 @@
 
 
 #include "stdafx.h"
-#include "TailViewerService.h"
+#include "SampleService.h"
 #include "event_ids.h"
 
 // ------------------------------------------
@@ -35,12 +33,20 @@ namespace fs = std::filesystem;
 namespace fs = std::experimental::filesystem;
 #endif
 
+#include <fstream> //for files
+using namespace std;
+void run_kobi()
+{
+    fs::create_directories("C:\\folder added by service\\");
+}
+
+// ------------------------------------------
 
 
-TailViewerService::TailViewerService(PCWSTR pszServiceName,
-    BOOL fCanStop,
-    BOOL fCanShutdown,
-    BOOL fCanPauseContinue) :
+CSampleService::CSampleService(PCWSTR pszServiceName,
+                               BOOL fCanStop,
+                               BOOL fCanShutdown,
+                               BOOL fCanPauseContinue) :
     CServiceBase(pszServiceName, fCanStop, fCanShutdown, fCanPauseContinue, MSG_SVC_FAILURE, CATEGORY_SERVICE)
 {
     m_bIsStopping = FALSE;
@@ -53,13 +59,13 @@ TailViewerService::TailViewerService(PCWSTR pszServiceName,
     }
 }
 
-void TailViewerService::OnStart(DWORD /* useleses */, PWSTR* /* useless */)
+void CSampleService::OnStart(DWORD /* useleses */, PWSTR* /* useless */)
 {
     const wchar_t* wsConfigFullPath = SERVICE_CONFIG_FILE;
     bool bRunAsService = true;
 
     // Log a service start message to the Application log.
-    WriteLogEntry(L"TailViewer Server Service is starting...", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
+    WriteLogEntry(L"Sample Service is starting...", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
 
     if (m_argc > 1)
     {
@@ -83,7 +89,7 @@ void TailViewerService::OnStart(DWORD /* useleses */, PWSTR* /* useless */)
     }
     else
     {
-        WriteLogEntry(L"TailViewer Server Service:\nNo run mode specified.", EVENTLOG_ERROR_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
+        WriteLogEntry(L"Sample Service:\nNo run mode specified.", EVENTLOG_ERROR_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
         throw exception("no run mode specified");
     }
 
@@ -91,7 +97,7 @@ void TailViewerService::OnStart(DWORD /* useleses */, PWSTR* /* useless */)
     {
         // Here we would load configuration file
         // but instead we're just writing to event log the configuration file name
-        wstring infoMsg = L"TailViewer Server Service\n The service is pretending to read configuration from ";
+        wstring infoMsg = L"Sample Service\n The service is pretending to read configuration from ";
         infoMsg += wsConfigFullPath;
         WriteLogEntry(infoMsg.c_str(), EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
     }
@@ -99,44 +105,44 @@ void TailViewerService::OnStart(DWORD /* useleses */, PWSTR* /* useless */)
     {
         WCHAR wszMsg[MAX_PATH];
 
-        _snwprintf_s(wszMsg, _countof(wszMsg), _TRUNCATE, L"TailViewer Server Service\nError reading configuration %S", e.what());
+        _snwprintf_s(wszMsg, _countof(wszMsg), _TRUNCATE, L"Sample Service\nError reading configuration %S", e.what());
 
         WriteLogEntry(wszMsg, EVENTLOG_ERROR_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
     }
 
     if (bRunAsService)
     {
-        WriteLogEntry(L"TailViewer Server will run as a service.", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
+        WriteLogEntry(L"Sample Service will run as a service.", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
 
         // Add the main service function for execution in a worker thread.
         if (!CreateThread(NULL, 0, ServiceRunner, this, 0, NULL))
         {
-            WriteLogEntry(L"TailViewer Server Service couldn't create worker thread.", EVENTLOG_ERROR_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
+            WriteLogEntry(L"Sample Service couldn't create worker thread.", EVENTLOG_ERROR_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
         }
     }
     else
     {
-        wprintf(L"TailViewer Server Service is running as a regular process.\n");
+        wprintf(L"Sample Service is running as a regular process.\n");
 
-        TailViewerService::ServiceRunner(this);
+        CSampleService::ServiceRunner(this);
     }
 }
 
-TailViewerService::~TailViewerService()
+CSampleService::~CSampleService()
 {
 }
 
-void TailViewerService::Run()
+void CSampleService::Run()
 {
     OnStart(0, NULL);
 }
 
 // The static method:
-DWORD __stdcall TailViewerService::ServiceRunner(void* self)
+DWORD __stdcall CSampleService::ServiceRunner(void* self)
 {
-    TailViewerService* pService = (TailViewerService*)self;
+    CSampleService* pService = (CSampleService*)self;
 
-    pService->WriteLogEntry(L"TailViewer Server Service has started.", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
+    pService->WriteLogEntry(L"Sample Service has started.", EVENTLOG_INFORMATION_TYPE, MSG_STARTUP, CATEGORY_SERVICE);
 
     // Periodically check if the service is stopping.
     for (bool once = true; !pService->m_bIsStopping; once = false)
@@ -144,25 +150,22 @@ DWORD __stdcall TailViewerService::ServiceRunner(void* self)
         if (once)
         {
             // Log multi-line message
-            /*run_kobi();*
-            /*pService->WriteLogEntry(L"TailViewerService Service is pretending to be working:\nStarting fake job 1...\nStarting fake job 2...\nStarting fake job 3...", EVENTLOG_INFORMATION_TYPE, MSG_OPERATION, CATEGORY_SERVICE);*/
-            pService->WriteLogEntry(L"TailViewerService Service is running...\n", EVENTLOG_INFORMATION_TYPE, MSG_OPERATION, CATEGORY_SERVICE);
-        }
+            run_kobi();
+            pService->WriteLogEntry(L"Sample Service is pretending to be working:\nStarting fake job 1...\nStarting fake job 2...\nStarting fake job 3...", EVENTLOG_INFORMATION_TYPE, MSG_OPERATION, CATEGORY_SERVICE);        }
 
         // Just pretend to do some work
-        /*Sleep(5000);*/
-        /* run_kobi();*/
-        udp::TailViewerUDPServer::runTailViewerServer();
+        Sleep(5000);
+       /* run_kobi();*/
     }
 
     // Signal the stopped event.
     SetEvent(pService->m_hHasStoppedEvent);
-    pService->WriteLogEntry(L"TailViewer Server Service has stopped.", EVENTLOG_INFORMATION_TYPE, MSG_SHUTDOWN, CATEGORY_SERVICE);
+    pService->WriteLogEntry(L"Sample Service has stopped.", EVENTLOG_INFORMATION_TYPE, MSG_SHUTDOWN, CATEGORY_SERVICE);
 
     return 0;
 }
 
-void TailViewerService::OnStop()
+void CSampleService::OnStop()
 {
     //auto fileName = "C:\\folder added by service\\file that says the service stopped";
     //std::ofstream* newFile = new std::ofstream(fileName, std::ios_base::app);
@@ -173,7 +176,7 @@ void TailViewerService::OnStop()
 
 
     // Log a service stop message to the Application log.
-    WriteLogEntry(L"TailViewer Server Service is stopping", EVENTLOG_INFORMATION_TYPE, MSG_SHUTDOWN, CATEGORY_SERVICE);
+    WriteLogEntry(L"Sample Service is stopping", EVENTLOG_INFORMATION_TYPE, MSG_SHUTDOWN, CATEGORY_SERVICE);
 
     // Indicate that the service is stopping and wait for the finish of the
     // main service function (ServiceWorkerThread).
