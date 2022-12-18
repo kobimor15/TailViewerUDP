@@ -60,6 +60,8 @@ namespace udp
 
 	void TailViewerUDPServer::runTailViewerServer()
 	{
+		stringstream createPathString;
+
 		/* Get the ip and port from the configuration file */
 		//Config file should be at C:\\logs\config, and should look like: "ip_address \n port"
 		ifstream configFile("C:\\logs\\config\\config.cfg");
@@ -68,6 +70,21 @@ namespace udp
 		{
 			getline(configFile, serverIP);
 			getline(configFile, serverPortString);
+		}
+		else //No such directory or file
+		{
+			//Create directories for the config file:
+			createPathString << "C:\\logs";
+			fs::create_directories(createPathString.str());
+			createPathString << "\\config";
+			fs::create_directories(createPathString.str());
+			//Create config.cfg file:
+			createPathString << "\\config.cfg";
+			auto fileName = createPathString.str();
+			std::ofstream* newFile = new std::ofstream(fileName, std::ios_base::app);
+			cout << "Error - Add input to config.cfg file in C:\\logs\\config\\config.cfg, and try again.\nWrite the server ip in the first line, and the port in the second line.\nClosing program...\n";
+			getchar();
+			exit(1);
 		}
 		unsigned int ServerPort = stoi(serverPortString);
 
@@ -84,7 +101,6 @@ namespace udp
 
 			/* Creating the path and folders (if not exists): */
 			// 1. Create folder C:\\logs
-			stringstream createPathString;
 			createPathString << "C:\\logs\\";
 			fs::create_directories(createPathString.str());
 
