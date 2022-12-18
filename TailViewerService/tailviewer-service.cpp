@@ -18,9 +18,7 @@
 * WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 \***************************************************************************/
 
-
 // tailviewer_service.cpp : Defines the entry point for the console application.
-//
 
 #pragma region "Includes"
 #include "stdafx.h"

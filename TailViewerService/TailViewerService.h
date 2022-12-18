@@ -20,9 +20,7 @@
 
 #pragma once
 
-//#include "..\TailVeiwerUDP\TailViewerUDPServer.h"
 #include "../TailVeiwerUDP/TailViewerUDPServer.h"
-//#include "../Service-Base/ServiceBase.h"
 #include "../service-base/ServiceBase.h"
 #include <string>
 
@@ -58,9 +56,6 @@
 
 using namespace std;
 
-/// <summary>
-/// class TailViewerService
-/// </summary>
 class TailViewerService : public CServiceBase
 {
 public:

@@ -20,7 +20,6 @@
 * WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 \***************************************************************************/
 
-
 #include "stdafx.h"
 #include "TailViewerService.h"
 #include "event_ids.h"

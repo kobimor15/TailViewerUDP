@@ -61,7 +61,7 @@ namespace udp
 	void TailViewerUDPServer::runTailViewerServer()
 	{
 		/* Get the ip and port from the configuration file */
-	//Config file should be at C:\\logs\config, and should look like: "ip_address \n port"
+		//Config file should be at C:\\logs\config, and should look like: "ip_address \n port"
 		ifstream configFile("C:\\logs\\config\\config.cfg");
 		string serverIP, serverPortString;
 		if (configFile.good())
