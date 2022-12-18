@@ -22,111 +22,13 @@
 #include <strsafe.h>
 
 #include "ServiceBase.h"
-//---------Tail viewer includes ---------
-//
-//#include "TailViewerUDPServer.h"
-//#include <fstream> //for files
-//#include <map>
-//#include <string>
-//#include <sstream>
-//#include <filesystem>
-//#include <ctime>
-//
-
-//---------------------------------------
 #pragma endregion
 
 
 #pragma region Static Members
 
 // Initialize the singleton service instance.
-CServiceBase *CServiceBase::s_service = NULL;
-
-
-
-/* ---------START---------- Tail Viewer fucntion (previous main) -------------------*/
-
-//#include "TailViewerUDPServer.h"
-//#include <fstream> //for files
-//#include <map>
-//#include <string>
-//#include <sstream>
-//#include <filesystem>
-//#include <ctime>
-//
-//namespace fs = std::filesystem;
-//using namespace std;
-//
-//int main()
-//{
-//	/* Get the ip and port from the configuration file */
-//	//Config file should be at C:\\logs\config, and should look like: "ip_address \n port"
-//	ifstream configFile("C:\\logs\\config\\config.cfg");
-//	string serverIP, serverPortString;
-//	if (configFile.good())
-//	{
-//		getline(configFile, serverIP);
-//		getline(configFile, serverPortString);
-//	}
-//	unsigned int ServerPort = stoi(serverPortString);
-//
-//	udp::CommunicationInfo cmi1 = udp::CommunicationInfo(serverIP, EMPTY_IP, ServerPort, EMPTY_PORT);
-//	udp::TailViewerUDPServer udpServer = udp::TailViewerUDPServer();
-//	udpServer.init(&cmi1); //Initialize server
-//
-//	while (true)
-//	{
-//		cout << "Server is waiting for message...";
-//		udpServer.recvMessageFrom();
-//		string msg;
-//		msg = udpServer.buffer;
-//		
-//		/* Creating the path and folders (if not exists): */
-//		// 1. Create folder C:\\logs
-//		stringstream createPathString;
-//		createPathString << "C:\\logs\\";
-//		fs::create_directories(createPathString.str()); 
-//
-//		// 2. Create folder of the date in C:\\logs\date
-//		struct tm newtime;
-//		time_t ltm = time(0);
-//		localtime_s(&newtime, &ltm);
-//		createPathString  << newtime.tm_mday << "-" << newtime.tm_mon << "-" << newtime.tm_year + 1900;
-//		fs::create_directories(createPathString.str());
-//
-//		// 3. Create folder of the sender ip in C:\\logs\date\ip
-//		struct sockaddr_in rmtAddr = udpServer.getRemoteAddress();
-//		char senderIP[INET_ADDRSTRLEN] = "";
-//		struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
-//		inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
-//		createPathString << "\\" << senderIP;
-//		fs::create_directories(createPathString.str());
-//
-//		// Add/Search in map:
-//		auto itr = udpServer.fileDescriptors.find(senderIP);
-//		if (itr != udpServer.fileDescriptors.end()) //enter if exists in the map
-//		{
-//			udpServer.writeMessageToFile(msg, (itr->second));
-//			(itr->second)->flush();
-//		}
-//		else //case not exists in the map, create the file
-//		{
-//			createPathString << "\\" << "input_from_udp.txt";
-//			auto fileName = createPathString.str();
-//			std::ofstream* newFile = new std::ofstream(fileName,std::ios_base::app);
-//
-//			udpServer.fileDescriptors.insert({ senderIP, newFile }); //insert the new file descriptor to the map
-//			udpServer.writeMessageToFile(msg, newFile);
-//			newFile->flush();
-//		}
-//	}
-//}
-
-
-
-/* ---------END---------- Tail Viewer fucntio (previous main) -------------------*/
-
-
+CServiceBase* CServiceBase::s_service = NULL;
 
 
 //
@@ -145,7 +47,7 @@ CServiceBase *CServiceBase::s_service = NULL;
 //   function fails, the return value is FALSE. To get extended error
 //   information, call GetLastError.
 //
-BOOL CServiceBase::Run(CServiceBase &service)
+BOOL CServiceBase::Run(CServiceBase& service)
 {
     s_service = &service;
 
@@ -173,13 +75,13 @@ BOOL CServiceBase::Run(CServiceBase &service)
 //   * dwArgc   - number of command line arguments
 //   * lpszArgv - array of command line arguments
 //
-void WINAPI CServiceBase::ServiceMain(DWORD dwArgc, PWSTR *pszArgv)
+void WINAPI CServiceBase::ServiceMain(DWORD dwArgc, PWSTR* pszArgv)
 {
     assert(s_service != NULL);
 
     // Register the handler function for the service
     s_service->m_statusHandle = RegisterServiceCtrlHandler(
-                                    s_service->m_name, ServiceCtrlHandler);
+        s_service->m_name, ServiceCtrlHandler);
     if (s_service->m_statusHandle == NULL)
     {
         throw GetLastError();
@@ -217,22 +119,22 @@ void WINAPI CServiceBase::ServiceCtrlHandler(DWORD dwCtrl)
 {
     switch (dwCtrl)
     {
-        case SERVICE_CONTROL_STOP:
-            s_service->Stop();
-            break;
-        case SERVICE_CONTROL_PAUSE:
-            s_service->Pause();
-            break;
-        case SERVICE_CONTROL_CONTINUE:
-            s_service->Continue();
-            break;
-        case SERVICE_CONTROL_SHUTDOWN:
-            s_service->Shutdown();
-            break;
-        case SERVICE_CONTROL_INTERROGATE:
-            break;
-        default:
-            break;
+    case SERVICE_CONTROL_STOP:
+        s_service->Stop();
+        break;
+    case SERVICE_CONTROL_PAUSE:
+        s_service->Pause();
+        break;
+    case SERVICE_CONTROL_CONTINUE:
+        s_service->Continue();
+        break;
+    case SERVICE_CONTROL_SHUTDOWN:
+        s_service->Shutdown();
+        break;
+    case SERVICE_CONTROL_INTERROGATE:
+        break;
+    default:
+        break;
     }
 }
 
@@ -259,11 +161,11 @@ void WINAPI CServiceBase::ServiceCtrlHandler(DWORD dwCtrl)
 //   * wErrorCategoryId - the event category for the error log messages.
 //
 CServiceBase::CServiceBase(PCWSTR pszServiceName,
-                           BOOL fCanStop,
-                           BOOL fCanShutdown,
-                           BOOL fCanPauseContinue,
-                           DWORD dwErrorEventId,
-                           WORD wErrorCategoryId)
+    BOOL fCanStop,
+    BOOL fCanShutdown,
+    BOOL fCanPauseContinue,
+    DWORD dwErrorEventId,
+    WORD wErrorCategoryId)
 {
     // Service name must be a valid string and cannot be NULL.
     m_name = (pszServiceName == NULL) ? const_cast<PWSTR>(L"") : pszServiceName;
@@ -322,7 +224,7 @@ CServiceBase::~CServiceBase(void)
 //   * dwArgc   - number of command line arguments
 //   * lpszArgv - array of command line arguments
 //
-void CServiceBase::Start(DWORD dwArgc, PWSTR *pszArgv)
+void CServiceBase::Start(DWORD dwArgc, PWSTR* pszArgv)
 {
     try
     {
@@ -369,7 +271,7 @@ void CServiceBase::Start(DWORD dwArgc, PWSTR *pszArgv)
 //   * dwArgc   - number of command line arguments
 //   * lpszArgv - array of command line arguments
 //
-void CServiceBase::OnStart(DWORD dwArgc, PWSTR *pszArgv)
+void CServiceBase::OnStart(DWORD dwArgc, PWSTR* pszArgv)
 {
 }
 
@@ -594,8 +496,8 @@ void CServiceBase::OnShutdown()
 //   * dwWaitHint - estimated time for pending operation, in milliseconds
 //
 void CServiceBase::SetServiceStatus(DWORD dwCurrentState,
-                                    DWORD dwWin32ExitCode,
-                                    DWORD dwWaitHint)
+    DWORD dwWin32ExitCode,
+    DWORD dwWaitHint)
 {
     static DWORD dwCheckPoint = 1;
 
@@ -607,7 +509,7 @@ void CServiceBase::SetServiceStatus(DWORD dwCurrentState,
 
     m_status.dwCheckPoint =
         ((dwCurrentState == SERVICE_RUNNING) ||
-         (dwCurrentState == SERVICE_STOPPED)) ?
+            (dwCurrentState == SERVICE_STOPPED)) ?
         0 : dwCheckPoint++;
 
     // Report the status of the service to the SCM.
@@ -690,15 +592,15 @@ void CServiceBase::WriteLogEntry(PCWSTR pszMessage, WORD wType, DWORD dwEventId,
     if (hEventSource)
     {
         ReportEvent(hEventSource,          // Event log handle
-                    wType,                 // Event type
-                    wCategory,             // Event category
-                    dwEventId,             // Event identifier
-                    NULL,                  // No security identifier
-                    nStrings,              // Size of lpszStrings array
-                    0,                     // No binary data
-                    pszStrings,            // Array of strings
-                    NULL                   // No binary data
-                   );
+            wType,                 // Event type
+            wCategory,             // Event category
+            dwEventId,             // Event identifier
+            NULL,                  // No security identifier
+            nStrings,              // Size of lpszStrings array
+            0,                     // No binary data
+            pszStrings,            // Array of strings
+            NULL                   // No binary data
+        );
 
         DeregisterEventSource(hEventSource);
     }
@@ -722,7 +624,7 @@ void CServiceBase::WriteErrorLogEntry(PCWSTR pszFunction, DWORD dwError)
 {
     wchar_t szMessage[260];
     StringCchPrintf(szMessage, ARRAYSIZE(szMessage),
-                    L"%s failed with error code 0x%08lx", pszFunction, dwError);
+        L"%s failed with error code 0x%08lx", pszFunction, dwError);
     WriteLogEntry(szMessage, EVENTLOG_ERROR_TYPE, m_dwErrorEventId, m_wErrorCategoryId);
 }
 

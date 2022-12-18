@@ -40,19 +40,18 @@
 //   NOTE: If the function fails to install the service, it prints the error
 //   in the standard output stream for users to diagnose the problem.
 //
-auto a = (PCWSTR)"THE_NAMEEEE";
 void InstallService(PCWSTR pszServiceName,
-                    PCWSTR pszDisplayName,
-                    PCWSTR pszDescription,
-                    PCWSTR pszParams,
-                    DWORD dwStartType,
-                    PCWSTR pszDependencies,
-                    PCWSTR pszAccount,
-                    PCWSTR pszPassword,
-                    BOOL bRegisterWithEventLog,
-                    DWORD dwNumMessageCategories,
-                    PCWSTR pszMessageResourceFilePath
-                   )
+    PCWSTR pszDisplayName,
+    PCWSTR pszDescription,
+    PCWSTR pszParams,
+    DWORD dwStartType,
+    PCWSTR pszDependencies,
+    PCWSTR pszAccount,
+    PCWSTR pszPassword,
+    BOOL bRegisterWithEventLog,
+    DWORD dwNumMessageCategories,
+    PCWSTR pszMessageResourceFilePath
+)
 {
     wchar_t wszPath[MAX_PATH];
     wchar_t wszFullCommand[2 * MAX_PATH];
@@ -72,14 +71,12 @@ void InstallService(PCWSTR pszServiceName,
 
     // Open the local default service control manager database
     schSCManager = OpenSCManager(NULL, NULL, SC_MANAGER_CONNECT |
-                                 SC_MANAGER_CREATE_SERVICE);
+        SC_MANAGER_CREATE_SERVICE);
     if (schSCManager == NULL)
     {
         wprintf(L"OpenSCManager failed w/err 0x%08lx\n", GetLastError());
         goto Cleanup;
     }
-
-    
 
     // Install the service into SCM by calling CreateService
     schService = CreateService(
@@ -137,14 +134,14 @@ void InstallService(PCWSTR pszServiceName,
             }
 
             status = RegCreateKeyEx(HKEY_LOCAL_MACHINE,  // Root key
-                                    wszKey,                                   // Name of the key to create
-                                    0,                                        // Reserved
-                                    const_cast<WCHAR*>(L""),                  // No class
-                                    REG_OPTION_NON_VOLATILE,                  // Persistent key
-                                    KEY_ALL_ACCESS,                           // Can do what we need with it
-                                    NULL,                                     // No security attributes
-                                    &hResult,                                 // Handle to the created/opened key
-                                    &dwDisposition);                          // Created new or opened existing?
+                wszKey,                                   // Name of the key to create
+                0,                                        // Reserved
+                const_cast<WCHAR*>(L""),                  // No class
+                REG_OPTION_NON_VOLATILE,                  // Persistent key
+                KEY_ALL_ACCESS,                           // Can do what we need with it
+                NULL,                                     // No security attributes
+                &hResult,                                 // Handle to the created/opened key
+                &dwDisposition);                          // Created new or opened existing?
 
             if (status != ERROR_SUCCESS)
             {
@@ -157,12 +154,12 @@ void InstallService(PCWSTR pszServiceName,
             // Full path to the executable that should contain
             // message strings
             status = RegSetValueEx(hResult,
-                                   L"EventMessageFile",
-                                   0,
-                                   REG_SZ,
-                                   (BYTE*)pszResourcePath,
+                L"EventMessageFile",
+                0,
+                REG_SZ,
+                (BYTE*)pszResourcePath,
 #pragma warning(suppress : 4267) // path szResourcPath length ain't gonna overflow DWORD
-                                   (wcslen(pszResourcePath) + 1) * sizeof(WCHAR));
+                (wcslen(pszResourcePath) + 1) * sizeof(WCHAR));
 
 
             if (status != ERROR_SUCCESS)
@@ -176,11 +173,11 @@ void InstallService(PCWSTR pszServiceName,
 
             // Event types supported
             status = RegSetValueEx(hResult,
-                                   L"TypesSupported",
-                                   0,
-                                   REG_DWORD,
-                                   (BYTE *)&dwFlags,
-                                   sizeof(DWORD));
+                L"TypesSupported",
+                0,
+                REG_DWORD,
+                (BYTE*)&dwFlags,
+                sizeof(DWORD));
 
             if (status != ERROR_SUCCESS)
             {
@@ -195,12 +192,12 @@ void InstallService(PCWSTR pszServiceName,
             if (dwNumMessageCategories > 0)
             {
                 status = RegSetValueEx(hResult,
-                                       L"CategoryMessageFile",
-                                       0,
-                                       REG_SZ,
-                                       (BYTE*)pszResourcePath,
+                    L"CategoryMessageFile",
+                    0,
+                    REG_SZ,
+                    (BYTE*)pszResourcePath,
 #pragma warning(suppress : 4267) // path szResourcPath length ain't gonna overflow DWORD
-                                       (wcslen(pszResourcePath) + 1) * sizeof(WCHAR));
+                    (wcslen(pszResourcePath) + 1) * sizeof(WCHAR));
 
                 if (status != ERROR_SUCCESS)
                 {
@@ -212,11 +209,11 @@ void InstallService(PCWSTR pszServiceName,
                 }
 
                 status = RegSetValueEx(hResult,
-                                       L"CategoryCount",
-                                       0,
-                                       REG_DWORD,
-                                       (BYTE *)&dwNumMessageCategories,
-                                       sizeof(DWORD));
+                    L"CategoryCount",
+                    0,
+                    REG_DWORD,
+                    (BYTE*)&dwNumMessageCategories,
+                    sizeof(DWORD));
 
                 if (status != ERROR_SUCCESS)
                 {
@@ -276,7 +273,7 @@ void UninstallService(PCWSTR pszServiceName)
 
     // Open the service with delete, stop, and query status permissions
     schService = OpenService(schSCManager, pszServiceName, SERVICE_STOP |
-                             SERVICE_QUERY_STATUS | DELETE);
+        SERVICE_QUERY_STATUS | DELETE);
     if (schService == NULL)
     {
         wprintf(L"OpenService failed w/err 0x%08lx\n", GetLastError());
@@ -327,8 +324,8 @@ void UninstallService(PCWSTR pszServiceName)
     }
 
     status = RegDeleteKey(HKEY_LOCAL_MACHINE,    // Root key
-                          wszKey                 // Name of the key to delete
-                         );
+        wszKey                 // Name of the key to delete
+    );
 
     if (status != ERROR_SUCCESS)
     {

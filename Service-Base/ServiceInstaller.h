@@ -49,17 +49,17 @@
 //   in the standard output stream for users to diagnose the problem.
 //
 void InstallService(PCWSTR pszServiceName,
-                    PCWSTR pszDisplayName,
-                    PCWSTR pszDescription,
-                    PCWSTR pszParams,
-                    DWORD dwStartType,
-                    PCWSTR pszDependencies,
-                    PCWSTR pszAccount,
-                    PCWSTR pszPassword,
-                    BOOL bRegisterWithEventLog = TRUE,
-                    DWORD dwNumMessageCategories = 0,
-                    PCWSTR pszMessageResourceFilePath = NULL
-                   );
+    PCWSTR pszDisplayName,
+    PCWSTR pszDescription,
+    PCWSTR pszParams,
+    DWORD dwStartType,
+    PCWSTR pszDependencies,
+    PCWSTR pszAccount,
+    PCWSTR pszPassword,
+    BOOL bRegisterWithEventLog = TRUE,
+    DWORD dwNumMessageCategories = 0,
+    PCWSTR pszMessageResourceFilePath = NULL
+);
 
 //
 //   FUNCTION: UninstallService

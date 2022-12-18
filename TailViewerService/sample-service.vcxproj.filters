@@ -21,7 +21,7 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SampleService.h">
+    <ClInclude Include="TailViewerService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="event_ids.h">
@@ -32,10 +32,10 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="sample-service.cpp">
+    <ClCompile Include="tailviewer-service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SampleService.cpp">
+    <ClCompile Include="TailViewerService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

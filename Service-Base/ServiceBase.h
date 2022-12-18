@@ -23,24 +23,24 @@
 
 class CServiceBase
 {
-  public:
+public:
 
     // Register the executable for a service with the Service Control Manager
     // (SCM). After you call Run(ServiceBase), the SCM issues a Start command,
     // which results in a call to the OnStart method in the service. This
     // method blocks until the service has stopped.
-    static BOOL Run(CServiceBase &service);
+    static BOOL Run(CServiceBase& service);
 
     // Service object constructor. The optional parameters (fCanStop,
     // fCanShutdown and fCanPauseContinue) allow you to specify whether the
     // service can be stopped, paused and continued, or be notified when
     // system shutdown occurs.
     CServiceBase(PCWSTR pszServiceName,
-                 BOOL fCanStop = TRUE,
-                 BOOL fCanShutdown = TRUE,
-                 BOOL fCanPauseContinue = FALSE,
-                 DWORD dwErrorEventId = 0,
-                 WORD wErrorCategoryId = 0);
+        BOOL fCanStop = TRUE,
+        BOOL fCanShutdown = TRUE,
+        BOOL fCanPauseContinue = FALSE,
+        DWORD dwErrorEventId = 0,
+        WORD wErrorCategoryId = 0);
 
     // Service object destructor.
     virtual ~CServiceBase(void);
@@ -55,13 +55,13 @@ class CServiceBase
     // Stop the service.
     void Stop();
 
-  protected:
+protected:
 
     // When implemented in a derived class, executes when a Start command is
     // sent to the service by the SCM or when the operating system starts
     // (for a service that starts automatically). Specifies actions to take
     // when the service starts.
-    virtual void OnStart(DWORD dwArgc, PWSTR *pszArgv);
+    virtual void OnStart(DWORD dwArgc, PWSTR* pszArgv);
 
     // When implemented in a derived class, executes when a Stop command is
     // sent to the service by the SCM. Specifies actions to take when a
@@ -85,26 +85,26 @@ class CServiceBase
 
     // Set the service status and report the status to the SCM.
     void SetServiceStatus(DWORD dwCurrentState,
-                          DWORD dwWin32ExitCode = NO_ERROR,
-                          DWORD dwWaitHint = 0);
+        DWORD dwWin32ExitCode = NO_ERROR,
+        DWORD dwWaitHint = 0);
 
     // Log a message to the Application event log.
     virtual void WriteLogEntry(PCWSTR pszMessage, WORD wType, DWORD dwEventId = 0, WORD wCategory = 0);
 
     // Log an error message to the Application event log.
     virtual void WriteErrorLogEntry(PCWSTR pszFunction,
-                                    DWORD dwError = GetLastError());
+        DWORD dwError = GetLastError());
 
     // Entry point for the service. It registers the handler function for the
     // service and starts the service.
-    static void WINAPI ServiceMain(DWORD dwArgc, LPWSTR *lpszArgv);
+    static void WINAPI ServiceMain(DWORD dwArgc, LPWSTR* lpszArgv);
 
     // The function is called by the SCM whenever a control code is sent to
     // the service.
     static void WINAPI ServiceCtrlHandler(DWORD dwCtrl);
 
     // Start the service.
-    void Start(DWORD dwArgc, PWSTR *pszArgv);
+    void Start(DWORD dwArgc, PWSTR* pszArgv);
 
     // Pause the service.
     void Pause();
@@ -116,7 +116,7 @@ class CServiceBase
     void Shutdown();
 
     // The singleton service instance.
-    static CServiceBase *s_service;
+    static CServiceBase* s_service;
 
     // The name of the service
     PCWSTR m_name;

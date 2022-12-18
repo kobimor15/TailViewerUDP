@@ -21,9 +21,6 @@
     <ClInclude Include="ServiceInstaller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\source\repos\TailVeiwerUDP\TailVeiwerUDP\TailViewerUDPServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ServiceBase.cpp">
