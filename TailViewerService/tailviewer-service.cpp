@@ -157,7 +157,7 @@ int wmain(int argc, wchar_t* argv[])
                 return dwErr;
             }
         }
-        else if (_wcsicmp(PROCESS_CMD, argv[1]) == 0)
+        else if (_wcsicmp(PROCESS_CMD, argv[1]) == 0) //Run enters here
         {
             TailViewerService service(SERVICE_NAME);
 
