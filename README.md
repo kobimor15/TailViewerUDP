@@ -51,3 +51,6 @@ in the properties:
 3. Go to the Debugging section. 
 4. There is a box for "Command Arguments", add requested argument (install/uninstall/run...).
 
+### In case of error:
+* In case of LNK2001 error, you might need to go to project properties -> Linker -> Input -> Additional Dependencies -> add: <Ws2_32.lib>.
+* In case of error "filesystem is not in library std", go to project properties -> C/C++ -> Language -> C++ Language Standard -> change to "C++ 17 Strandard" or higher version. 
