@@ -55,7 +55,7 @@ namespace udp
 
 	void TailViewerUDPServer::writeMessageToFile(std::string message, std::ofstream* file) const
 	{
-		*file << message<< '\n';
+		*file << message;
 	}
 
 	void TailViewerUDPServer::runTailViewerServer()
