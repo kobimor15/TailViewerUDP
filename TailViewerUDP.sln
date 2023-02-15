@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TailVeiwerUDP", "TailVeiwerUDP\TailVeiwerUDP.vcxproj", "{9E5C5EAD-293F-448B-ABE3-09E27336D709}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TailViewerUDP", "TailViewerUDP\TailViewerUDP.vcxproj", "{9E5C5EAD-293F-448B-ABE3-09E27336D709}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{629078D1-17FF-4E1C-8C0F-803F4052756B}"
 EndProject
