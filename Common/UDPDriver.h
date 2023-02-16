@@ -31,8 +31,8 @@ namespace udp
 		unsigned int remotePort;
 	};
 
-	/* ---------- udpBasics Class ---------- */
-	class udpBasics
+	/* ---------- UDPDriver Class ---------- */
+	class UDPDriver
 	{
 	public:
 		void closeSocket(SOCKET socket);

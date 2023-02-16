@@ -128,10 +128,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="udpBasics.cpp" />
+    <ClCompile Include="EthernetDriver.cpp" />
+    <ClCompile Include="UDPDriver.cpp" />
+    <ClCompile Include="UDPListenerDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="udpBasics.h" />
+    <ClInclude Include="EthernetDriver.h" />
+    <ClInclude Include="IConfig.h" />
+    <ClInclude Include="UDPDriver.h" />
+    <ClInclude Include="UDPListenerDriver.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

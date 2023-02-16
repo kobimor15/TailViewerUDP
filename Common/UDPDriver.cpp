@@ -7,11 +7,11 @@ namespace fs = std::filesystem;
 namespace fs = std::experimental::filesystem;
 #endif
 
-#include "udpBasics.h"
+#include "UDPDriver.h"
 
 namespace udp
 {	
-	void udpBasics::closeSocket(SOCKET socket)
+	void UDPDriver::closeSocket(SOCKET socket)
 	{
 		int error_code = closesocket(socket);
 		if (error_code == SOCKET_ERROR)

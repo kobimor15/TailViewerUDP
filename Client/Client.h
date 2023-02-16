@@ -1,10 +1,10 @@
 #pragma once
-#include "..\Common\udpBasics.h"
+#include "..\Common\UDPDriver.h"
 #include <iostream>
 
 namespace udp
 {
-	class Client : udpBasics
+	class Client : UDPDriver
 	{
 	public:
 		void init(CommunicationInfo* commuInfo);
