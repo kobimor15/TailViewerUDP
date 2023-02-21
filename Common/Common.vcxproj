@@ -129,11 +129,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EthernetDriver.cpp" />
+    <ClCompile Include="FileConfig.cpp" />
     <ClCompile Include="UDPDriver.cpp" />
     <ClCompile Include="UDPListenerDriver.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EthernetDriver.h" />
+    <ClInclude Include="FileConfig.h" />
     <ClInclude Include="IConfig.h" />
     <ClInclude Include="UDPDriver.h" />
     <ClInclude Include="UDPListenerDriver.h" />

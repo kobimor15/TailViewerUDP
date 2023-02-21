@@ -1,9 +1,15 @@
 #pragma once
+#include "EthernetDriver.h"
 
-namespace upd
+namespace udp
 {
-	class UDPListenerDriver : EthernetDriver
+	class UDPListenerDriver : public EthernetDriver
 	{
+	public:
+		//UDPListenerDriver() = default; //////////temp
+		//~UDPListenerDriver() = default;//////////temp 
+
+
 	};
 }
 
