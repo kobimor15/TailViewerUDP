@@ -8,10 +8,15 @@
 namespace udp
 {
 	const std::string configFileDefaultPath = "C:\\logs\\config\\config.cfg";
+	
 	class FileConfig : public IConfig
 	{
 	public:
+		FileConfig(); //C-tor
 		std::string get_ip() override;
 		unsigned int get_port() override;
+	private:
+		std::string m_serverIP;
+		unsigned int m_serverPort;
 	};
 }
