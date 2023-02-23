@@ -4,12 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TailViewerUDP", "TailViewerUDP\TailViewerUDP.vcxproj", "{9E5C5EAD-293F-448B-ABE3-09E27336D709}"
+	ProjectSection(ProjectDependencies) = postProject
+		{721F7F95-DBFC-41BA-A81F-2627220A415B} = {721F7F95-DBFC-41BA-A81F-2627220A415B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{629078D1-17FF-4E1C-8C0F-803F4052756B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxproj", "{721F7F95-DBFC-41BA-A81F-2627220A415B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleUDPServer", "ConsoleUDPServer\ConsoleUDPServer.vcxproj", "{F6C48128-1B39-4388-8A31-E3A97607B0E7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{721F7F95-DBFC-41BA-A81F-2627220A415B} = {721F7F95-DBFC-41BA-A81F-2627220A415B}
+		{9E5C5EAD-293F-448B-ABE3-09E27336D709} = {9E5C5EAD-293F-448B-ABE3-09E27336D709}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

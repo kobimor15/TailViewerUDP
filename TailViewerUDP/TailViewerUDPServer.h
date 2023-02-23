@@ -1,6 +1,7 @@
 #pragma once
-#include "..\Common\UDPDriver.h"
+//#include "..\Common\UDPDriver.h"
 #include "..\Common\FileConfig.h"
+#include "../Common/UDPListenerDriver.h"
 #include <fstream> //for files
 #include <map>
 #include <string>
@@ -13,7 +14,8 @@ using namespace std;
 
 namespace udp
 {
-	class TailViewerUDPServer : public UDPDriver
+	//class TailViewerUDPServer : public UDPDriver
+	class TailViewerUDPServer : public UDPListenerDriver
 	{
 	public:
 		void init(CommunicationInfo* commuInfo);
