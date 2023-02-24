@@ -12,19 +12,35 @@ int main()
 	
 	//udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_ip(), EMPTY_IP, fc.get_port(), EMPTY_PORT);
 	udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_TVserver_ip(), fc.get_TVserver_port());
+	UDPListenerDriver udpListener;
+	udpListener.initDriver(&cmi1);
+
+
+	while (true)
+	{
+		cout << "Server is waiting for message...";
+		string msg = udpListener.receiveMessage();
+		
+		//Create paths
+
+	}
+
+
 
 
 	// TODO: no need of this object anymore...?
-	udp::TailViewerUDPServer udpServer = udp::TailViewerUDPServer();
-	udpServer.init(&cmi1); //Initialize server
+	//udp::TailViewerUDPServer udpServer = udp::TailViewerUDPServer();
+	//udpServer.init(&cmi1); //Initialize server
 
 
 	while(true)
 	{
-		cout << "Server is waiting for message...";
+		/*cout << "Server is waiting for message...";
 		udpServer.recvMessageFrom();
 		string msg;
-		msg = udpServer.buffer;
+		msg = udpServer.buffer;*/
+
+
 
 		/* Creating the path and folders (if not exists): */
 		// 1. Create folder C:\\logs
