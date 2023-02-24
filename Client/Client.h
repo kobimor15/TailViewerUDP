@@ -4,16 +4,16 @@
 
 namespace udp
 {
-	class Client : UDPDriver
-	{
-	public:
-		void init(CommunicationInfo* commuInfo);
-		void sendMessageToServer(std::string msg);
+	//class Client : UDPDriver
+	//{
+	//public:
+	//	void init(CommunicationInfo* commuInfo);
+	//	void sendMessageToServer(std::string msg);
 
-	protected:
-		CommunicationInfo* m_commuInfo;
+	//protected:
+	//	CommunicationInfo* m_commuInfo;
 
-	private:
-		char clientBuffer[BUFFER_SIZE];
-	};
+	//private:
+	//	char clientBuffer[BUFFER_SIZE];
+	//};
 }

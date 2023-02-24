@@ -11,15 +11,15 @@ namespace fs = std::experimental::filesystem;
 
 namespace udp
 {	
-	void UDPDriver::closeSocket(SOCKET socket)
-	{
-		int error_code = closesocket(socket);
-		if (error_code == SOCKET_ERROR)
-		{
-			std::cout << "Error - close socket function failed. Error:" << WSAGetLastError() << "\n";
-			getchar();
-			return;
-		}
-		WSACleanup();
-	}
+	//void UDPDriver::closeSocket(SOCKET socket)
+	//{
+	//	int error_code = closesocket(socket);
+	//	if (error_code == SOCKET_ERROR)
+	//	{
+	//		std::cout << "Error - close socket function failed. Error:" << WSAGetLastError() << "\n";
+	//		getchar();
+	//		return;
+	//	}
+	//	WSACleanup();
+	//}
 }

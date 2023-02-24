@@ -13,13 +13,14 @@
 
 namespace udp
 {
-	char* EthernetDriver::getRemoteIP()
+	std::string EthernetDriver::getRemoteIP()
 	{
 		struct sockaddr_in rmtAddr = getRemoteAddress();
 		char senderIP[INET_ADDRSTRLEN] = "";
 		struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
 		inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
-		return senderIP;
+		std::string string_sender_IP = senderIP;
+		return string_sender_IP;
 	}
 
 	void EthernetDriver::closeSocket(SOCKET socket)

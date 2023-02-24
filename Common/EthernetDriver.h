@@ -53,7 +53,7 @@ namespace udp
 		virtual std::string receiveMessage() = 0;
 
 		void closeSocket(SOCKET socket);
-		char* getRemoteIP(); //Getter
+		std::string getRemoteIP();
 		struct sockaddr_in getRemoteAddress() //Getter
 		{
 			return m_remote_address;

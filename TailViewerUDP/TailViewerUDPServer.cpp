@@ -2,8 +2,8 @@
 
 namespace udp
 {
-	void TailViewerUDPServer::init(CommunicationInfo* commuInfo)
-	{
+	//void TailViewerUDPServer::init(CommunicationInfo* commuInfo)
+	//{
 		//WSADATA wsaData;
 		//if (WSAStartup(MAKEWORD(2, 0), &wsaData) != 0)
 		//{
@@ -49,25 +49,47 @@ namespace udp
 		//	std::cout << "\nError - unable to initialize ethernet driver.\n";
 		//	exit(1);
 		//};
-	}
+	//}
 
-	void TailViewerUDPServer::recvMessageFrom()
-	{		
-		int sizeOfClientAddr = sizeof(struct sockaddr_in);
-		memset(&m_remote_address, 0, sizeof(m_remote_address));
-		int n = recvfrom(m_local_socket, (char*)buffer, BUFFER_SIZE, 0, (struct sockaddr*)&m_remote_address, &sizeOfClientAddr);
-		buffer[n] = '\0';
-		std::cout << "\nServer received: " << buffer << "\n";
-	}
+	//void TailViewerUDPServer::recvMessageFrom()
+	//{		
+	//	int sizeOfClientAddr = sizeof(struct sockaddr_in);
+	//	memset(&m_remote_address, 0, sizeof(m_remote_address));
+	//	int n = recvfrom(m_local_socket, (char*)buffer, BUFFER_SIZE, 0, (struct sockaddr*)&m_remote_address, &sizeOfClientAddr);
+	//	buffer[n] = '\0';
+		//std::cout << "\nServer received: " << buffer << "\n";
+	//}
 
 	// ------moved to FileManager:
-	void TailViewerUDPServer::writeMessageToFile(std::string message, std::ofstream* file) const
-	{
-		*file << message;
-	}
+	//void TailViewerUDPServer::writeMessageToFile(std::string message, std::ofstream* file) const
+	//{
+	//	*file << message;
+	//}
 
 	void TailViewerUDPServer::runTailViewerServer()
 	{		
+		// ------ Config by file ------
+		FileConfig fc = FileConfig();
+		udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_TVserver_ip(), fc.get_TVserver_port());
+		UDPListenerDriver udpListener;
+		udpListener.initDriver(&cmi1);
+		FileManager logsFilesManager;
+
+		while (true)
+		{
+			cout << "Server is waiting for message...";
+			string msg = udpListener.receiveMessage();
+			std::cout << "\nServer received: " << msg << "\n";
+
+			//Create paths
+			string rmtIP = udpListener.getRemoteIP();
+			logsFilesManager.createLogFileDescriptor(rmtIP);
+			//logsFilesManager.createLogFileDescriptor(udpListener.getRemoteIP());
+			logsFilesManager.writeMessageToFile(msg, rmtIP);
+		}
+
+
+
 		//FileConfig fc = FileConfig();
 		//udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_ip(), EMPTY_IP, fc.get_port(), EMPTY_PORT);
 		//udp::TailViewerUDPServer udpServer = udp::TailViewerUDPServer();

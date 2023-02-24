@@ -7,47 +7,57 @@ namespace udp
 		*file << message;
 	}
 
-	//void FileManager::createLogFilePath()
-	//{
-	//	/* Creating the path and folders (if not exists): */
-	//		// 1. Create folder C:\\logs
-	//	stringstream createPathString;
-	//	createPathString << "C:\\logs\\";
-	//	fs::create_directories(createPathString.str());
+	void FileManager::writeMessageToFile(std::string message, std::string remote_ip)
+	//void FileManager::writeMessageToFile(std::string message, char* remote_ip)
+	{
+		auto itr = m_fileDescriptors.find(remote_ip);
+		writeMessageToFile(message, (itr->second));
+		(itr->second)->flush();
 
-	//	// 2. Create folder of the date in C:\\logs\date
-	//	struct tm newtime;
-	//	time_t ltm = time(0);
-	//	localtime_s(&newtime, &ltm);
-	//	createPathString << newtime.tm_mday << "-" << newtime.tm_mon + 1 << "-" << newtime.tm_year + 1900;
-	//	fs::create_directories(createPathString.str());
+		//TODO: check what to do in error? need to handle or let exception be send from the map object?
+		//if (itr != m_fileDescriptors.end()) //enter if exists in the map
+		//{
+		//	writeMessageToFile(message, (itr->second));
+		//	(itr->second)->flush();
+		//}
+	}
 
-	//	// 3. Create folder of the sender ip in C:\\logs\date\ip
-	//	struct sockaddr_in rmtAddr = udpServer.getRemoteAddress();
-	//	char senderIP[INET_ADDRSTRLEN] = "";
-	//	struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
-	//	inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
-	//	createPathString << "\\" << senderIP;
-	//	fs::create_directories(createPathString.str());
+	void FileManager::createLogFileDescriptor(std::string remote_ip)
+	//void FileManager::createLogFileDescriptor(char* remote_ip)
+	{
+		string rmtIP =remote_ip;
+		/* Creating the path and folders (if not exists): */
+			// 1. Create folder/path: the content of 'logFileDefaultPath'
+		stringstream createPathString;
+		createPathString << logFileDefaultPath;
+		fs::create_directories(createPathString.str());
 
-	//	// Add/Search in map:
-	//	auto itr = udpServer.m_fileDescriptors.find(senderIP);
-	//	if (itr != udpServer.m_fileDescriptors.end()) //enter if exists in the map
-	//	{
-	//		udpServer.writeMessageToFile(msg, (itr->second));
-	//		(itr->second)->flush();
-	//	}
-	//	else //case not exists in the map, create the file
-	//	{
-	//		createPathString << "\\" << "input_from_udp.txt";
-	//		auto fileName = createPathString.str();
-	//		std::ofstream* newFile = new std::ofstream(fileName, std::ios_base::app);
+		// 2. Create folder/path of the date in 'logFileDefaultPath'\date
+		struct tm newtime;
+		time_t ltm = time(0);
+		localtime_s(&newtime, &ltm);
+		createPathString << newtime.tm_mday << "-" << newtime.tm_mon + 1 << "-" << newtime.tm_year + 1900;
+		fs::create_directories(createPathString.str());
 
-	//		udpServer.m_fileDescriptors.insert({ senderIP, newFile }); //insert the new file descriptor to the map
-	//		udpServer.writeMessageToFile(msg, newFile);
-	//		newFile->flush();
-	//	}
-	//}
+		// 3. Create folder/path of the sender ip in 'logFileDefaultPath'\date\ip
+		// TODO: delete comments
+		//struct sockaddr_in rmtAddr = udpServer.getRemoteAddress();
+		//char senderIP[INET_ADDRSTRLEN] = "";
+		//struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
+		//inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
+		createPathString << "\\" << rmtIP;
+		fs::create_directories(createPathString.str()); /////////////-------- BUG HERE,MEMORY
 
+		// If file descriptor does not exists in map, create file and add it to map:
+		auto itr = m_fileDescriptors.find(rmtIP);
+		if (itr == m_fileDescriptors.end())
+		{
+			createPathString << "\\" << "input_from_udp.txt";
+			auto fileName = createPathString.str();
+			std::ofstream* newFile = new std::ofstream(fileName, std::ios_base::app);
 
+			m_fileDescriptors.insert({ rmtIP, newFile }); //insert the new file descriptor to the map
+			newFile->flush();
+		}
+	}
 }
