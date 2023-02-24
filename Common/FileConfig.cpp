@@ -13,12 +13,12 @@ namespace udp
 		}
 		m_serverPort = stoi(serverPortString);
 	}
-	std::string FileConfig::get_ip()
+	std::string FileConfig::get_TVserver_ip()
 	{		
 		return m_serverIP;
 	}
 
-	unsigned int FileConfig::get_port()
+	unsigned int FileConfig::get_TVserver_port()
 	{
 		return m_serverPort;
 	}

@@ -43,12 +43,12 @@ namespace udp
 		//	exit(1);
 		//}
 
-		UDPListenerDriver udpListenerDriver = UDPListenerDriver();
-		if (!udpListenerDriver.initDriver(commuInfo))
-		{
-			std::cout << "\nError - unable to initialize ethernet driver.\n";
-			exit(1);
-		};
+		//UDPListenerDriver udpListenerDriver = UDPListenerDriver();
+		//if (!udpListenerDriver.initDriver(commuInfo))
+		//{
+		//	std::cout << "\nError - unable to initialize ethernet driver.\n";
+		//	exit(1);
+		//};
 	}
 
 	void TailViewerUDPServer::recvMessageFrom()

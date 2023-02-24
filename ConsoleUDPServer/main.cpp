@@ -9,9 +9,16 @@ int main()
 
 	// ------ Config by file ------
 	FileConfig fc = FileConfig();
-	udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_ip(), EMPTY_IP, fc.get_port(), EMPTY_PORT);
+	
+	//udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_ip(), EMPTY_IP, fc.get_port(), EMPTY_PORT);
+	udp::CommunicationInfo cmi1 = udp::CommunicationInfo(fc.get_TVserver_ip(), fc.get_TVserver_port());
+
+
+	// TODO: no need of this object anymore...?
 	udp::TailViewerUDPServer udpServer = udp::TailViewerUDPServer();
 	udpServer.init(&cmi1); //Initialize server
+
+
 	while(true)
 	{
 		cout << "Server is waiting for message...";

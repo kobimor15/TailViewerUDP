@@ -18,14 +18,16 @@ namespace udp
 	class TailViewerUDPServer : public UDPListenerDriver
 	{
 	public:
-		void init(CommunicationInfo* commuInfo);
+		void init(CommunicationInfo* commuInfo);// moved to UDPListenerDriver
 		void recvMessageFrom(); //moved to FileManager
 		void writeMessageToFile(std::string message, std::ofstream* file) const; //moved to FileManager
 
+
+		//delete, redundant
 		static void runTailViewerServer(); //Starts the server, includ initializing and all.
 
 		std::map<std::string, std::ofstream*> m_fileDescriptors; //moved to FileManager
 
-		char buffer[BUFFER_SIZE];
+		char buffer[BUFFER_SIZE]; //moved to UDPListenerDriver
 	};
 }

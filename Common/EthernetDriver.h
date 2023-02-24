@@ -4,8 +4,9 @@
 #include <WS2tcpip.h> //for inet_pton function
 #include <string>
 
-constexpr unsigned int EMPTY_PORT = 1;
-constexpr char EMPTY_IP[] = "0.0.0.0";
+//delete both
+//constexpr unsigned int EMPTY_PORT = 1;
+//constexpr char EMPTY_IP[] = "0.0.0.0";
 
 namespace udp
 {
@@ -16,32 +17,48 @@ namespace udp
 	/* ---------- CommunicationInfo Struct ---------- */
 	struct CommunicationInfo
 	{
-		CommunicationInfo(std::string local_IP, std::string remote_IP, unsigned int local_Port, unsigned int remote_Port)
+		// TODO: no need of remote port and remote ip?
+	//	CommunicationInfo(std::string local_IP, std::string remote_IP, unsigned int local_Port, unsigned int remote_Port)
+	//	{
+	//		localPort = local_Port;
+	//		remotePort = remote_Port;
+	//		strcpy_s(localIP, local_IP.c_str());
+	//		strcpy_s(remoteIP, remote_IP.c_str());
+	//	}
+	//public:
+	//	char localIP[IP_SIZE];
+	//	char remoteIP[IP_SIZE];
+	//	unsigned int localPort;
+	//	unsigned int remotePort;
+
+
+
+		// TODO: maybe no need? we can get this data from the file and thats it..
+		CommunicationInfo(std::string local_IP, unsigned int local_Port)
 		{
 			localPort = local_Port;
-			remotePort = remote_Port;
 			strcpy_s(localIP, local_IP.c_str());
-			strcpy_s(remoteIP, remote_IP.c_str());
 		}
 	public:
 		char localIP[IP_SIZE];
-		char remoteIP[IP_SIZE];
 		unsigned int localPort;
-		unsigned int remotePort;
+
 	};
 
 	/* ---------- EthernetDriver Class ---------- */
 	class EthernetDriver
 	{
 	public:
-		void closeSocket(SOCKET socket);
 		virtual bool initDriver(CommunicationInfo* commuInfo) = 0;
+		virtual std::string receiveMessage() = 0;
+
+		void closeSocket(SOCKET socket);
+		char* getRemoteIP(); //Getter
 		struct sockaddr_in getRemoteAddress() //Getter
 		{
 			return m_remote_address;
 		}
 		
-
 	protected:
 		SOCKET m_local_socket = INVALID_SOCKET;
 		struct sockaddr_in m_local_address;

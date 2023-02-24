@@ -13,6 +13,15 @@
 
 namespace udp
 {
+	char* EthernetDriver::getRemoteIP()
+	{
+		struct sockaddr_in rmtAddr = getRemoteAddress();
+		char senderIP[INET_ADDRSTRLEN] = "";
+		struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
+		inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
+		return senderIP;
+	}
+
 	void EthernetDriver::closeSocket(SOCKET socket)
 	{
 		int error_code = closesocket(socket);

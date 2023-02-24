@@ -13,8 +13,8 @@ namespace udp
 	{
 	public:
 		FileConfig(); //C-tor
-		std::string get_ip() override;
-		unsigned int get_port() override;
+		std::string get_TVserver_ip() override;
+		unsigned int get_TVserver_port() override;
 	private:
 		std::string m_serverIP;
 		unsigned int m_serverPort;

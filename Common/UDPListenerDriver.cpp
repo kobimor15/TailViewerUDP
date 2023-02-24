@@ -43,4 +43,15 @@ namespace udp
 			exit(1);
 		}
 	}
+
+	std::string UDPListenerDriver::receiveMessage()
+	{
+		int sizeOfClientAddr = sizeof(struct sockaddr_in);
+		memset(&m_remote_address, 0, sizeof(m_remote_address));
+		int n = recvfrom(m_local_socket, (char*)buffer, BUFFER_SIZE, 0, (struct sockaddr*)&m_remote_address, &sizeOfClientAddr);
+		buffer[n] = '\0';
+		//std::cout << "\nServer received: " << buffer << "\n";
+		std::string buf = buffer;
+		return buf;
+	}
 }
