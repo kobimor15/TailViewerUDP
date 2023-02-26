@@ -8,17 +8,17 @@ namespace udp
 		std::string serverIP, serverPortString;
 		if (configFile.good())
 		{
-			getline(configFile, m_serverIP);//ignore ip line
+			getline(configFile, m_serverIP);
 			getline(configFile, serverPortString);
 		}
 		m_serverPort = stoi(serverPortString);
 	}
-	std::string FileConfig::get_TVserver_ip()
+	std::string FileConfig::get_TVserver_ip() const
 	{		
 		return m_serverIP;
 	}
 
-	unsigned int FileConfig::get_TVserver_port()
+	unsigned int FileConfig::get_TVserver_port() const
 	{
 		return m_serverPort;
 	}

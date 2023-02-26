@@ -1,14 +1,3 @@
-//#ifdef __cpp_lib_filesystem
-//#include <filesystem>
-//namespace fs = std::filesystem;
-//#elif __cpp_lib_experimental_filesystem
-//#define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING 1;
-//#include <experimental/filesystem>
-//namespace fs = std::experimental::filesystem;
-//#endif
-////////// ^^^^ check if needed
-
-
 #include "EthernetDriver.h"
 
 namespace udp

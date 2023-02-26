@@ -5,16 +5,16 @@
 #include <sstream>
 #include <string>
 
-namespace udp
+namespace udp //Network
 {
 	const std::string configFileDefaultPath = "C:\\logs\\config\\config.cfg";
 	
 	class FileConfig : public IConfig
 	{
 	public:
-		FileConfig(); //C-tor
-		std::string get_TVserver_ip() override;
-		unsigned int get_TVserver_port() override;
+		FileConfig();
+		std::string get_TVserver_ip() const override;
+		unsigned int get_TVserver_port() const override;
 	private:
 		std::string m_serverIP;
 		unsigned int m_serverPort;

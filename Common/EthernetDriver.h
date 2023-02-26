@@ -4,10 +4,6 @@
 #include <WS2tcpip.h> //for inet_pton function
 #include <string>
 
-//delete both
-//constexpr unsigned int EMPTY_PORT = 1;
-//constexpr char EMPTY_IP[] = "0.0.0.0";
-
 namespace udp
 {
 	constexpr int BUFFER_SIZE = 1024;

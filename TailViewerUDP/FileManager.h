@@ -19,10 +19,9 @@ namespace udp
 	public:
 		FileManager() = default;
 		void writeMessageToFile(std::string message, std::ofstream* file) const;
-		void writeMessageToFile(std::string message, std::string remote_ip);
-		//void writeMessageToFile(std::string message, char* remote_ip);
+		void writeMessageToFile(std::string message, std::string remote_ip);		
+		/// <summary> Creates the log file and adds it to the map (if not exists) </summary>
 		void createLogFileDescriptor(std::string remote_ip);
-		//void createLogFileDescriptor(char* remote_ip);
 
 		std::map<std::string, std::ofstream*> m_fileDescriptors;
 	};

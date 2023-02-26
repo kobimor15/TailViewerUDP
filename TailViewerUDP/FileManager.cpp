@@ -8,7 +8,6 @@ namespace udp
 	}
 
 	void FileManager::writeMessageToFile(std::string message, std::string remote_ip)
-	//void FileManager::writeMessageToFile(std::string message, char* remote_ip)
 	{
 		auto itr = m_fileDescriptors.find(remote_ip);
 		writeMessageToFile(message, (itr->second));
@@ -23,11 +22,10 @@ namespace udp
 	}
 
 	void FileManager::createLogFileDescriptor(std::string remote_ip)
-	//void FileManager::createLogFileDescriptor(char* remote_ip)
 	{
 		string rmtIP =remote_ip;
 		/* Creating the path and folders (if not exists): */
-			// 1. Create folder/path: the content of 'logFileDefaultPath'
+		// 1. Create folder/path: the content of 'logFileDefaultPath'
 		stringstream createPathString;
 		createPathString << logFileDefaultPath;
 		fs::create_directories(createPathString.str());
@@ -40,13 +38,8 @@ namespace udp
 		fs::create_directories(createPathString.str());
 
 		// 3. Create folder/path of the sender ip in 'logFileDefaultPath'\date\ip
-		// TODO: delete comments
-		//struct sockaddr_in rmtAddr = udpServer.getRemoteAddress();
-		//char senderIP[INET_ADDRSTRLEN] = "";
-		//struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
-		//inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text
 		createPathString << "\\" << rmtIP;
-		fs::create_directories(createPathString.str()); /////////////-------- BUG HERE,MEMORY
+		fs::create_directories(createPathString.str());
 
 		// If file descriptor does not exists in map, create file and add it to map:
 		auto itr = m_fileDescriptors.find(rmtIP);
