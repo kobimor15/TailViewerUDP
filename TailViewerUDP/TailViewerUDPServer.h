@@ -4,8 +4,9 @@
 #include "FileManager.h"
 
 using namespace std;
+using namespace network_config;
 
-namespace udp
+namespace tail_viewer
 {
 	class TailViewerUDPServer
 	{

@@ -1,6 +1,6 @@
 #include "FileConfig.h"
 
-namespace udp
+namespace network_config
 {
 	FileConfig::FileConfig()
 	{

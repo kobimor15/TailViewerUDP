@@ -1,6 +1,6 @@
 #include "UDPListenerDriver.h"
 
-namespace udp
+namespace network
 {
 	bool UDPListenerDriver::initDriver(CommunicationInfo* commuInfo)
 	{

@@ -4,7 +4,7 @@
 #include <WS2tcpip.h> //for inet_pton function
 #include <string>
 
-namespace udp
+namespace network
 {
 	constexpr int BUFFER_SIZE = 1024;
 	constexpr int IP_SIZE = 16;
@@ -13,23 +13,6 @@ namespace udp
 	/* ---------- CommunicationInfo Struct ---------- */
 	struct CommunicationInfo
 	{
-		// TODO: no need of remote port and remote ip?
-	//	CommunicationInfo(std::string local_IP, std::string remote_IP, unsigned int local_Port, unsigned int remote_Port)
-	//	{
-	//		localPort = local_Port;
-	//		remotePort = remote_Port;
-	//		strcpy_s(localIP, local_IP.c_str());
-	//		strcpy_s(remoteIP, remote_IP.c_str());
-	//	}
-	//public:
-	//	char localIP[IP_SIZE];
-	//	char remoteIP[IP_SIZE];
-	//	unsigned int localPort;
-	//	unsigned int remotePort;
-
-
-
-		// TODO: maybe no need? we can get this data from the file and thats it..
 		CommunicationInfo(std::string local_IP, unsigned int local_Port)
 		{
 			localPort = local_Port;

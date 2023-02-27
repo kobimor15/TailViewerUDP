@@ -4,7 +4,6 @@
 #include <string>
 #include <sstream>
 #include <filesystem>
-#include "..\Common\UDPDriver.h"
 #include <ctime>
 
 namespace fs = std::filesystem;
@@ -12,7 +11,7 @@ using namespace std;
 
 const std::string logFileDefaultPath = "C:\\logs\\";
 
-namespace udp
+namespace tail_viewer
 {
 	class FileManager
 	{

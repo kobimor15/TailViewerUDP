@@ -1,6 +1,6 @@
 #include "EthernetDriver.h"
 
-namespace udp
+namespace network
 {
 	std::string EthernetDriver::getRemoteIP()
 	{

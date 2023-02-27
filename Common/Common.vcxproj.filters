@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UDPDriver.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EthernetDriver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -29,9 +26,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UDPDriver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EthernetDriver.h">
       <Filter>Header Files</Filter>
     </ClInclude>

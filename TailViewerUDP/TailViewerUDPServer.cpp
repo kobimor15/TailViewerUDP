@@ -1,12 +1,12 @@
 #include "TailViewerUDPServer.h"
 
-namespace udp
+namespace tail_viewer
 {
 	void TailViewerUDPServer::runTailViewerServer(const IConfig& config)
 	{		
 		// ------ Config by file ------
-		udp::CommunicationInfo cmi1 = udp::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
-		UDPListenerDriver udpListener;
+		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
+		network::UDPListenerDriver udpListener;
 		udpListener.initDriver(&cmi1);
 		FileManager logsFilesManager;
 

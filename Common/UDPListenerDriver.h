@@ -1,7 +1,7 @@
 #pragma once
 #include "EthernetDriver.h"
 
-namespace udp //NETWORK
+namespace network
 {
 	class UDPListenerDriver : public EthernetDriver
 	{

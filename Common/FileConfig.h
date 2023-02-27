@@ -5,7 +5,7 @@
 #include <sstream>
 #include <string>
 
-namespace udp //Network
+namespace network_config
 {
 	const std::string configFileDefaultPath = "C:\\logs\\config\\config.cfg";
 	

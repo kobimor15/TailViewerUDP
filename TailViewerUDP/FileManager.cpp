@@ -1,6 +1,6 @@
 #include "FileManager.h"
 
-namespace udp
+namespace tail_viewer
 {
 	void FileManager::writeMessageToFile(std::string message, std::ofstream* file) const
 	{
@@ -12,13 +12,6 @@ namespace udp
 		auto itr = m_fileDescriptors.find(remote_ip);
 		writeMessageToFile(message, (itr->second));
 		(itr->second)->flush();
-
-		//TODO: check what to do in error? need to handle or let exception be send from the map object?
-		//if (itr != m_fileDescriptors.end()) //enter if exists in the map
-		//{
-		//	writeMessageToFile(message, (itr->second));
-		//	(itr->second)->flush();
-		//}
 	}
 
 	void FileManager::createLogFileDescriptor(std::string remote_ip)

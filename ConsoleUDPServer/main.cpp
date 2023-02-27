@@ -2,11 +2,12 @@
 #include "TailViewerUDPServer.h"
 #include <FileManager.h>
 
-using namespace udp;
+using namespace tail_viewer;
+using namespace network;
 
 int main()
 {
 	TailViewerUDPServer tailViewerServer;
-	FileConfig fc = FileConfig();
-	tailViewerServer.runTailViewerServer(fc);
+	FileConfig fconfig = FileConfig();
+	tailViewerServer.runTailViewerServer(fconfig);
 }
