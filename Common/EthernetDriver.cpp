@@ -2,7 +2,7 @@
 
 namespace network
 {
-	std::string EthernetDriver::getRemoteIP()
+	std::string EthernetDriver::getRemoteIP() const
 	{
 		struct sockaddr_in rmtAddr = getRemoteAddress();
 		char senderIP[INET_ADDRSTRLEN] = "";

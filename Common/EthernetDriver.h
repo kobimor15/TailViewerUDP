@@ -13,7 +13,7 @@ namespace network
 	/* ---------- CommunicationInfo Struct ---------- */
 	struct CommunicationInfo
 	{
-		CommunicationInfo(std::string local_IP, unsigned int local_Port)
+		CommunicationInfo(const std::string& local_IP, const unsigned int& local_Port)
 		{
 			localPort = local_Port;
 			strcpy_s(localIP, local_IP.c_str());
@@ -32,8 +32,8 @@ namespace network
 		virtual std::string receiveMessage() = 0;
 
 		void closeSocket(SOCKET socket);
-		std::string getRemoteIP();
-		struct sockaddr_in getRemoteAddress() //Getter
+		std::string getRemoteIP() const;
+		struct sockaddr_in getRemoteAddress() const//Getter
 		{
 			return m_remote_address;
 		}
