@@ -13,8 +13,8 @@ namespace network_config
 	{
 	public:
 		FileConfig();
-		std::string get_TVserver_ip() const override;
-		unsigned int get_TVserver_port() const override;
+		std::string getTVserverIP() const override;
+		unsigned int getTVserverPort() const override;
 	private:
 		std::string m_serverIP;
 		unsigned int m_serverPort;

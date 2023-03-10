@@ -4,7 +4,7 @@ namespace network
 {
 	std::string EthernetDriver::getRemoteIP() const
 	{
-		struct sockaddr_in rmtAddr = getRemoteAddress();
+		struct sockaddr_in rmtAddr = m_remote_address;
 		char senderIP[INET_ADDRSTRLEN] = "";
 		struct sockaddr_in addr_in = (struct sockaddr_in)rmtAddr;
 		inet_ntop(AF_INET, &(addr_in.sin_addr), senderIP, INET_ADDRSTRLEN); //Convert the ip to readable text

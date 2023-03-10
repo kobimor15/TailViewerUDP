@@ -2,15 +2,15 @@
 
 namespace tail_viewer
 {
-	void FileManager::writeMessageToFile(std::string message, std::ofstream* file) const
+	void FileManager::writeMessageToFile(std::string message, std::ofstream& file) const
 	{
-		*file << message;
+		file << message;
 	}
 
 	void FileManager::writeMessageToFile(std::string message, std::string remote_ip)
 	{
-		auto itr = m_fileDescriptors.find(remote_ip);
-		writeMessageToFile(message, (itr->second));
+		auto itr = m_fileDescriptors.find(remote_ip); //Should always be found-'createLogFileDescriptor' func created it.
+		writeMessageToFile(message, *(itr->second));
 		(itr->second)->flush();
 	}
 

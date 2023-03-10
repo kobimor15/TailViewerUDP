@@ -6,7 +6,7 @@
 
 namespace network
 {
-	constexpr int BUFFER_SIZE = 1024;
+	constexpr int BUFFER_SIZE = 60000;
 	constexpr int IP_SIZE = 16;
 	constexpr int PORT_SIZE = 4;
 
@@ -28,15 +28,11 @@ namespace network
 	class EthernetDriver
 	{
 	public:
-		virtual bool initDriver(CommunicationInfo* commuInfo) = 0;
+		virtual bool initDriver(CommunicationInfo& commuInfo) = 0;
 		virtual std::string receiveMessage() = 0;
 
 		void closeSocket(SOCKET socket);
 		std::string getRemoteIP() const;
-		struct sockaddr_in getRemoteAddress() const//Getter
-		{
-			return m_remote_address;
-		}
 		
 	protected:
 		SOCKET m_local_socket = INVALID_SOCKET;

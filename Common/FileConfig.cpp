@@ -13,12 +13,12 @@ namespace network_config
 		}
 		m_serverPort = stoi(serverPortString);
 	}
-	std::string FileConfig::get_TVserver_ip() const
+	std::string FileConfig::getTVserverIP() const
 	{		
 		return m_serverIP;
 	}
 
-	unsigned int FileConfig::get_TVserver_port() const
+	unsigned int FileConfig::getTVserverPort() const
 	{
 		return m_serverPort;
 	}

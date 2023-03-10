@@ -17,7 +17,7 @@ namespace tail_viewer
 	{
 	public:
 		FileManager() = default;
-		void writeMessageToFile(std::string message, std::ofstream* file) const;
+		void writeMessageToFile(std::string message, std::ofstream& file) const;
 		void writeMessageToFile(std::string message, std::string remote_ip);		
 		/// <summary> Creates the log file and adds it to the map (if not exists) </summary>
 		void createLogFileDescriptor(std::string remote_ip);

@@ -5,9 +5,9 @@ namespace tail_viewer
 	void TailViewerUDPServer::runTailViewerServer(const IConfig& config)
 	{		
 		// ------ Config by file ------
-		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
+		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.getTVserverIP(), config.getTVserverPort());
 		network::UDPListenerDriver udpListener;
-		udpListener.initDriver(&cmi1);
+		udpListener.initDriver(cmi1);
 		FileManager logsFilesManager;
 
 		while (true)
