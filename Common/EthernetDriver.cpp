@@ -19,7 +19,7 @@ namespace network
 		{
 			std::cout << "Error - close socket function failed. Error:" << WSAGetLastError() << "\n";
 			getchar();
-			return;
+			exit(1);
 		}
 		WSACleanup();
 	}

@@ -11,6 +11,12 @@ namespace network_config
 			getline(configFile, m_serverIP);
 			getline(configFile, serverPortString);
 		}
+		else
+		{
+			std::cout << "Error - can't open config file.\n";
+			getchar();
+			exit(1);
+		}
 		m_serverPort = stoi(serverPortString);
 	}
 	std::string FileConfig::getTVserverIP() const

@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <sstream>
 #include <string>
+#include <iostream>
 
 namespace network_config
 {

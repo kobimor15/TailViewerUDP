@@ -26,7 +26,8 @@ namespace network
 		/* Specify an address for the socket: */
 		m_local_address.sin_family = AF_INET; //for Ipv4
 		m_local_address.sin_port = htons(commuInfo.localPort);
-		error_code = inet_pton(AF_INET, commuInfo.localIP, &(m_local_address.sin_addr));
+		std::string local_IP = commuInfo.localIP;
+		error_code = inet_pton(AF_INET, local_IP.c_str(), &(m_local_address.sin_addr));
 		if (error_code <= 0)
 		{
 			std::cout << "Error - failed to conver ip address to struct in_addr. Error:" << WSAGetLastError() << "\n";

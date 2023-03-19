@@ -13,13 +13,13 @@ namespace network
 	/* ---------- CommunicationInfo Struct ---------- */
 	struct CommunicationInfo
 	{
-		CommunicationInfo(const std::string& local_IP, const unsigned int& local_Port)
+		CommunicationInfo(const std::string& localIP, const unsigned int& localPort)
 		{
-			localPort = local_Port;
-			strcpy_s(localIP, local_IP.c_str());
+			this->localIP = localIP;
+			this->localPort = localPort;
 		}
 	public:
-		char localIP[IP_SIZE];
+		std::string localIP;
 		unsigned int localPort;
 
 	};
