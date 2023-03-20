@@ -17,7 +17,7 @@ namespace network_config
 				exit(1);
 			}
 			m_serverPort = stoi(serverPortString);
-			if (m_serverPort < 0 || m_serverPort > 65535)
+			if (m_serverPort < 1024 || m_serverPort > 49151)
 			{
 				std::cout << "Error - invalid port.\n";
 				getchar();
