@@ -1,9 +1,15 @@
 #include <iostream>
-#include "TailViewerUDPServer.h"
+#include "..\TailViewerUDP\TailViewerUDPServer.h"
+//#include "TailViewerUDPServer.h"
+#include "..\TailViewerUDP\FileManager.h"
+//#include <FileManager.h>
 
-using namespace udp;
+using namespace tail_viewer;
+using namespace network;
 
 int main()
 {
-    TailViewerUDPServer::runTailViewerServer();
+	TailViewerUDPServer tailViewerServer;
+	FileConfig fconfig = FileConfig();
+	tailViewerServer.runTailViewerServer(fconfig);
 }

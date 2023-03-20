@@ -1,28 +1,17 @@
 #pragma once
-#include "..\Common\udpBasics.h"
-#include <fstream> //for files
-#include <map>
-#include <string>
-#include <sstream>
-#include <filesystem>
-#include <ctime>
+#include "..\Common\FileConfig.h"
+#include "..\Common\UDPListenerDriver.h"
+#include "FileManager.h"
 
-namespace fs = std::filesystem;
 using namespace std;
+using namespace network_config;
 
-namespace udp
+namespace tail_viewer
 {
-	class TailViewerUDPServer : public udpBasics
+	class TailViewerUDPServer
 	{
 	public:
-		void init(CommunicationInfo* commuInfo);
-		void recvMessageFrom();
-		void writeMessageToFile(std::string message, std::ofstream* file) const;
-
-		static void runTailViewerServer(); //Starts the server, includ initializing and all.
-
-		std::map<std::string, std::ofstream*> fileDescriptors;
-
-		char buffer[BUFFER_SIZE];
+		TailViewerUDPServer() = default;
+		void runTailViewerServer(const IConfig& config);
 	};
 }
