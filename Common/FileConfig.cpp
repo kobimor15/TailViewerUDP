@@ -10,6 +10,19 @@ namespace network_config
 		{
 			getline(configFile, m_serverIP);
 			getline(configFile, serverPortString);
+			if (serverPortString.find_first_not_of("0123456789") != std::string::npos)
+			{
+				std::cout << "Error - port not made of digits only.\n";
+				getchar();
+				exit(1);
+			}
+			m_serverPort = stoi(serverPortString);
+			if (m_serverPort < 0 || m_serverPort > 65535)
+			{
+				std::cout << "Error - invalid port.\n";
+				getchar();
+				exit(1);
+			}
 		}
 		else
 		{
@@ -17,7 +30,6 @@ namespace network_config
 			getchar();
 			exit(1);
 		}
-		m_serverPort = stoi(serverPortString);
 	}
 	std::string FileConfig::getTVserverIP() const
 	{		
