@@ -24,7 +24,7 @@ namespace network
 
 	};
 
-	/* ---------- EthernetDriver Class ---------- */
+	/* --------- EthernetDriver Class --------- */
 	class EthernetDriver
 	{
 	public:
