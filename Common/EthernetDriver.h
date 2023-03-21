@@ -33,7 +33,7 @@ namespace network
 
 		void closeSocket(SOCKET socket);
 		std::string getRemoteIP();
-		struct sockaddr_in getRemoteAddress() //Getter
+		struct sockaddr_in getRemoteAddress()
 		{
 			return m_remote_address;
 		}
