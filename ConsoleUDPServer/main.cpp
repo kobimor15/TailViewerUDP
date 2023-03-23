@@ -1,6 +1,8 @@
 #include <iostream>
-#include "TailViewerUDPServer.h"
-#include <FileManager.h>
+//#include "TailViewerUDPServer.h"
+#include "../TailViewerUDP/TailViewerUDPServer.h"
+//#include <FileManager.h>
+#include "../TailViewerUDP/FileManager.h"
 
 using namespace tail_viewer;
 using namespace network;
