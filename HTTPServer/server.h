@@ -7,7 +7,7 @@ typedef struct {
     char* value;
     int length;
     char* ip_input;
-    char* port_input;
+    unsigned int port_input;
 } REQUEST;
 
 typedef struct {
