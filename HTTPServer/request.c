@@ -31,6 +31,40 @@ char* get_request_value(char* buf)
 
 
 
+    //SOMETIMES WORKS...
+
+    char* token;
+    char retval[1024] = { 0 };
+
+    // Split input buffer into two space-separated strings
+    token = strtok(buf, " ");
+    if (token != NULL) {
+        strcpy(retval, token);
+        token = strtok(NULL, " ");
+        if (token != NULL) {
+            strcat(retval, " ");
+            strcat(retval, token);
+        }
+    }
+
+    // Append "/tv-server-config.html" if necessary
+    if (retval[strlen(retval) - 1] == '/') {
+        if (strlen(retval) + strlen("tv-server-config.html") < sizeof(retval))
+            strcat(retval, "tv-server-config.html");
+    }
+
+    return _strdup(retval);
+
+
+
+
+
+
+
+
+
+
+
     /////////this is new chat solution
     //char value1[50] = { 0 };
     //char value2[50] = { 0 };
@@ -50,34 +84,34 @@ char* get_request_value(char* buf)
 
 
 
-    //newer:
-    char* value1 = NULL;
-    char* value2 = NULL;
-    char* context = NULL;
-    char* token = strtok_s(buf, " ", &context);
+    ////newer:
+    //char* value1 = NULL;
+    //char* value2 = NULL;
+    //char* context = NULL;
+    //char* token = strtok_s(buf, " ", &context);
 
-    if (token != NULL) {
-        value1 = token;
-        token = strtok_s(NULL, " ", &context);
-        if (token != NULL) {
-            value2 = token;
-        }
-    }
+    //if (token != NULL) {
+    //    value1 = token;
+    //    token = strtok_s(NULL, " ", &context);
+    //    if (token != NULL) {
+    //        value2 = token;
+    //    }
+    //}
 
-    // concatenate the two strings
-    char retval[100] = { 0 };
-    if (value1 != NULL) {
-        strcpy(retval, value1);
-        strcat(retval, " ");
-    }
-    if (value2 != NULL) {
-        strcat(retval, value2);
-    }
+    //// concatenate the two strings
+    //char retval[100] = { 0 };
+    //if (value1 != NULL) {
+    //    strcpy(retval, value1);
+    //    strcat(retval, " ");
+    //}
+    //if (value2 != NULL) {
+    //    strcat(retval, value2);
+    //}
 
-    if (retval[strlen(retval) - 1] == '/')
-        strcat(retval, "tv-server-config.html");
+    //if (retval[strlen(retval) - 1] == '/')
+    //    strcat(retval, "tv-server-config.html");
 
-    return _strdup(retval);
+    //return _strdup(retval);
 
 
 
@@ -156,7 +190,7 @@ unsigned int getPortInput(char* buf)
     char* port_str = strstr(buf, "port=");
     if (port_str != NULL) {
         unsigned int port_val;
-        if (sscanf(port_str, "port=%d", &port_val) == 1) {
+        if (sscanf(port_str, "port=%u", &port_val) == 1) {
             /*printf("Port value: %d\n", port_val);*/
             return port_val;
         }

@@ -151,18 +151,17 @@ listen_goto:
 
 		REQUEST* request = GetRequest(msg_sock);
 
+		if (request->length == 0)
+			continue;
+
 		if (request->type == POST)
 		{
-			printf("Received from client: IP = %s , port = %s\n", request->ip_input, request->port_input);
+			printf("Received from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		}
 		else
 			printf("Client requested %d %s\n", request->type, request->value);
 
 
-
-
-		if (request->length == 0)
-			continue;
 
 		RESPONSE* response = GetResponse(request);
 		int sent = SendResponse(msg_sock, response);
