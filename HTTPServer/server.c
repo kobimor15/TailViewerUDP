@@ -159,7 +159,9 @@ listen_goto:
 			printf("Received from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		}
 		else
+		{
 			printf("Client requested %d %s\n", request->type, request->value);
+		}
 
 
 

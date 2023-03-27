@@ -20,52 +20,43 @@ int get_request_type(char* buf)
 
 char* get_request_value(char* buf)
 {
-    //char retval[100] = { 0 };
-
-    //sscanf(buf, "%s %s ", &retval, &retval);  // tee hee
-
-    //if (retval[strlen(retval) - 1] == '/')
-    //    strcat(retval, "tv-server-config.html");
-
-    //return _strdup(retval);
-
-
-
-    //SOMETIMES WORKS...
-
-    char* token;
     char retval[1024] = { 0 };
 
-    // Split input buffer into two space-separated strings
-    token = strtok(buf, " ");
-    if (token != NULL) {
-        strcpy(retval, token);
-        token = strtok(NULL, " ");
-        if (token != NULL) {
-            strcat(retval, " ");
-            strcat(retval, token);
-        }
-    }
-
-    // Append "/tv-server-config.html" if necessary
-    if (retval[strlen(retval) - 1] == '/') {
-        if (strlen(retval) + strlen("tv-server-config.html") < sizeof(retval))
-            strcat(retval, "tv-server-config.html");
-    }
+    sscanf(buf, "%s %s ", &retval, &retval);  // tee hee
+    return  "tv-server-config.html";
+    if (retval[strlen(retval) - 1] == '/')
+        strcat(retval, "tv-server-config.html");
 
     return _strdup(retval);
 
 
 
+    //SOMETIMES WORKS...
+
+    //char* token;
+    //char retval[1024] = { 0 };
+
+    // Split input buffer into two space-separated strings
+    //token = strtok(buf, " ");
+    //if (token != NULL) {
+    //    strcpy(retval, token);
+    //    token = strtok(NULL, " ");
+    //    if (token != NULL) {
+    //        strcat(retval, " ");
+    //        strcat(retval, token);
+    //    }
+    //}
+
+    // Append "/tv-server-config.html" if necessary
+    //if (retval[strlen(retval) - 1] == '/') {
+    //    if (strlen(retval) + strlen("tv-server-config.html") < sizeof(retval))
+    //        strcat(retval, "tv-server-config.html");
+    //}
+
+    //return _strdup(retval);
 
 
-
-
-
-
-
-
-    /////////this is new chat solution
+       /////////this is new chat solution
     //char value1[50] = { 0 };
     //char value2[50] = { 0 };
     //sscanf(buf, "%s %s ", value1, value2);
@@ -78,10 +69,6 @@ char* get_request_value(char* buf)
     //    strcat(retval, "tv-server-config.html");
 
     //return _strdup(retval);
-
-
-
-
 
 
     ////newer:
@@ -262,7 +249,7 @@ REQUEST* GetRequest(SOCKET sock)
     //KOBI
     if (request->type == POST)
     {
-        request->ip_input = getIPInput(buf);
+        strcpy(request->ip_input, getIPInput(buf));
         request->port_input = getPortInput(buf);
     }
 

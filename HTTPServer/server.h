@@ -6,7 +6,7 @@ typedef struct {
     int  type;
     char* value;
     int length;
-    char* ip_input;
+    char ip_input[22];
     unsigned int port_input;
 } REQUEST;
 
