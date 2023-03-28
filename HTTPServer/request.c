@@ -22,7 +22,7 @@ char* get_request_value(char* buf)
 {
     char retval[1024] = { 0 };
     sscanf(buf, "%s %s ", &retval, &retval);  // tee hee
-    return  "tv-server-config.html";
+    //return "tv-server-config.html";
     if (retval[strlen(retval) - 1] == '/')
         strcat(retval, "tv-server-config.html");
 
