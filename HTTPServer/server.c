@@ -82,16 +82,6 @@
 //	WSACleanup();
 //}
 //
-//
-//
-//
-//
-
-
-
-
-
-
 
 
 #include <winsock2.h>
@@ -142,12 +132,11 @@ listen_goto:
 		if (msg_sock == INVALID_SOCKET || msg_sock == -1)
 			error_die("accept()");
 
-		printf("\n\n#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$ %d\n\n", ++count);
+		//printf("\n\n#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$#$ %d\n\n", ++count);
 		char strAddress[INET_ADDRSTRLEN];
 		inet_ntop(AF_INET, &client_addr.sin_addr, strAddress, sizeof(strAddress));
 		printf("Connected to %s:%d\n", strAddress, htons(client_addr.sin_port));
 		//printf("Connected to %s:%d\n", inet_ntoa(client_addr.sin_addr), htons(client_addr.sin_port));
-
 
 		REQUEST* request = GetRequest(msg_sock);
 
@@ -155,14 +144,9 @@ listen_goto:
 			continue;
 
 		if (request->type == POST)
-		{
-			printf("Received from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
-		}
+			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		else
-		{
-			printf("Client requested %d %s\n", request->type, request->value);
-		}
-
+			printf("\nClient requested %d %s\n", request->type, request->value);
 
 
 		RESPONSE* response = GetResponse(request);

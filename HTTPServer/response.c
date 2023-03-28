@@ -79,7 +79,7 @@ int SendResponse(SOCKET sock, RESPONSE* response)
         }
     }
 
-    printf("Served file %s\n", response->filepath);
+    printf("Served file: %s\n", response->filepath);
 
     return 1;
 }
