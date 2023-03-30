@@ -1,4 +1,5 @@
 #include <WS2tcpip.h> //for inet_pton function
+#include <winsock2.h>
 
 #define forever while(1)
 
@@ -30,3 +31,4 @@ extern RESPONSE* GetResponse(REQUEST*);
 extern int SendResponse(SOCKET, RESPONSE*);
 extern void error_live(const char*);
 extern void error_die(const char*);
+void run();
