@@ -19,6 +19,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleUDPServer", "Console
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HTTPServer", "HTTPServer\HTTPServer.vcxproj", "{633DEFF1-8446-47FD-A842-4E7F5F09C1F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{721F7F95-DBFC-41BA-A81F-2627220A415B} = {721F7F95-DBFC-41BA-A81F-2627220A415B}
+		{9E5C5EAD-293F-448B-ABE3-09E27336D709} = {9E5C5EAD-293F-448B-ABE3-09E27336D709}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

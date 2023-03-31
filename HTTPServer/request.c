@@ -1,5 +1,5 @@
-#include <winsock2.h>
-#include <stdio.h>
+//#include <winsock2.h>
+//#include <stdio.h>
 #include "server.h"
 
 int get_request_type(char* buf)

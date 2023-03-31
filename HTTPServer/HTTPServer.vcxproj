@@ -117,12 +117,12 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\kobimor\source\repos\TailViewerUDP\TailViewerUDP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\kobimor\source\repos\TailViewerUDP\TailViewerUDP;C:\Users\kobimor\source\repos\TailViewerUDP\HTTPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Ws2_32.lib;$(OutputPath)\TailViewerUDP.lib;$(OutputPath)\Common.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;$(OutputPath)\TailViewerUDP.lib;$(OutputPath)\Common.lib;$(IntDirFullPath)\server.obj</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\kobimor\source\repos\TailViewerUDP\TailViewerUDP;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\kobimor\source\repos\TailViewerUDP\TailViewerUDP;C:\Users\kobimor\source\repos\TailViewerUDP\HTTPServer;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -141,7 +141,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Ws2_32.lib;$(OutputPath)\TailViewerUDP.lib;$(OutputPath)\Common.lib</AdditionalDependencies>
+      <AdditionalDependencies>Ws2_32.lib;$(OutputPath)\TailViewerUDP.lib;$(OutputPath)\Common.lib;$(IntDirFullPath)\server.obj</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -21,9 +21,6 @@
     <ClCompile Include="error.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="header.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="request.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,10 +33,13 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="header.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="server.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

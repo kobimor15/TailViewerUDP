@@ -1,5 +1,15 @@
+#pragma once
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <WS2tcpip.h> //for inet_pton function
 #include <winsock2.h>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
 
 #define forever while(1)
 
@@ -31,4 +41,9 @@ extern RESPONSE* GetResponse(REQUEST*);
 extern int SendResponse(SOCKET, RESPONSE*);
 extern void error_live(const char*);
 extern void error_die(const char*);
-void run();
+extern void run();
+
+
+#ifdef __cplusplus
+}
+#endif
