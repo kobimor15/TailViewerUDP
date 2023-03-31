@@ -1,11 +1,6 @@
-//#include <stdlib.h>
-//#include <stdio.h>
-//#include <string.h>
-
 #include "server.h"
 
-
-void run()
+void run(char* ip, unsigned int* port, int* flag)
 {
 	int addr_len;
 	struct sockaddr_in local, client_addr;
@@ -51,12 +46,17 @@ listen_goto:
 		printf("Connected to %s:%d\n", strAddress, htons(client_addr.sin_port));
 
 		REQUEST* request = GetRequest(msg_sock);
-
+		*flag = 0;
 		if (request->length == 0)
 			continue;
-
+		
 		if (request->type == POST)
+		{
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
+			strcpy(*ip, request->ip_input);
+			*port = request->port_input;
+			*flag = 1; //if flag is on, so the TV server need to restart itself, because ip and port updated.
+		}
 		else
 			printf("\nClient requested %d %s\n", request->type, request->value);
 

@@ -1,7 +1,4 @@
-//#include <winsock2.h>
-//#include <stdio.h>
 #include "server.h"
-
 
 BOOL FileExists(LPCTSTR szPath)
 {

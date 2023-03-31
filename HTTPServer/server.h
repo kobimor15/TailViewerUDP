@@ -1,12 +1,10 @@
 #pragma once
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #include <WS2tcpip.h> //for inet_pton function
 #include <winsock2.h>
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -41,7 +39,7 @@ extern RESPONSE* GetResponse(REQUEST*);
 extern int SendResponse(SOCKET, RESPONSE*);
 extern void error_live(const char*);
 extern void error_die(const char*);
-extern void run();
+extern void run(char* ip, unsigned int* port, int* flag);
 
 
 #ifdef __cplusplus

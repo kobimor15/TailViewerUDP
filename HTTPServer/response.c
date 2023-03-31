@@ -1,7 +1,4 @@
-//#include <winsock2.h>
-//#include <stdio.h>
 #include "server.h"
-//#include <unistd.h>
 
 char* get_full_path(char* name)
 {
@@ -39,7 +36,6 @@ RESPONSE* GetResponse(REQUEST* request)
 
     return response;
 }
-
 
 int SendResponse(SOCKET sock, RESPONSE* response)
 {
