@@ -9,5 +9,6 @@ void error_live(const char *s)
 void error_die(const char *s)
 {
     error_live(s);
+    CloseHandle(m_semaphore); //added for the semaphore
     exit(EXIT_FAILURE);
 }

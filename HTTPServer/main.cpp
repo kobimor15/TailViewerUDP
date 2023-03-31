@@ -10,14 +10,39 @@
 using namespace tail_viewer;
 using namespace network;
 
-int main()
+void runTailViewerServer()
 {
-	std::thread threadObj(run);
-	int i = 0;
 	TailViewerUDPServer tailViewerServer;
 	FileConfig fconfig = FileConfig();
 	tailViewerServer.runTailViewerServer(fconfig);
+}
 
+int main()
+{
+	std::thread httpServerThread(run);
+
+	//TailViewerUDPServer tailViewerServer;
+	//FileConfig fconfig = FileConfig();
+	//tailViewerServer.runTailViewerServer(fconfig);
+
+	std::thread tailViewerServerThread(runTailViewerServer);
+	
+	while (true)
+	{
+		if (m_flag == 1)
+		{
+			//tailViewerServerThread
+		}
+	}
+	
+		
+		
+		/*do {
+
+	} while (true);*/
+
+	
+	//int i = 0;
 	//while (true)
 	//{
 	//	if(i%10000000 == 0)
