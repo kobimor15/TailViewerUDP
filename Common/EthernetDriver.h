@@ -37,9 +37,9 @@ namespace network
 		{
 			return m_remote_address;
 		}
-		
-	protected:
 		SOCKET m_local_socket = INVALID_SOCKET;
+
+	protected:
 		struct sockaddr_in m_local_address;
 		struct sockaddr_in m_remote_address;
 	};

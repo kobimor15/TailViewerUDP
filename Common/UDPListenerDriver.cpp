@@ -49,6 +49,21 @@ namespace network
 		int sizeOfClientAddr = sizeof(struct sockaddr_in);
 		memset(&m_remote_address, 0, sizeof(m_remote_address));
 		int n = recvfrom(m_local_socket, (char*)buffer, BUFFER_SIZE, 0, (struct sockaddr*)&m_remote_address, &sizeOfClientAddr);
+		if (n == SOCKET_ERROR)
+		{
+			int error = WSAGetLastError();
+			if (error == WSAEINTR)
+			{
+				// The recv call was interrupted
+				printf("recv interrupted\n");
+				// TODO: reset tailviewer server. reread ip and port.
+			}
+			else
+			{
+				// Handle other errors
+				printf("recv error %d\n", error);
+			}
+		}
 		buffer[n] = '\0';
 		std::string buf = buffer;
 		return buf;

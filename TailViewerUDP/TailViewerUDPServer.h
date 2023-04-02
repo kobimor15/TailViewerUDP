@@ -12,6 +12,7 @@ namespace tail_viewer
 	{
 	public:
 		TailViewerUDPServer() = default;
-		void runTailViewerServer(const IConfig& config);
+		SOCKET init(const IConfig& config);
+		void runTailViewerServer();
 	};
 }

@@ -37,8 +37,8 @@ enum { RQ_UNDEF, GET, POST, PUT } response_types;
 
 extern const char* DEFAULT_ERROR_404;
 
-extern int m_flag;
-extern HANDLE m_semaphore;
+//extern int m_flag = 0;
+//extern HANDLE m_semaphore;
 
 extern char* get_header(RESPONSE*);
 extern REQUEST* GetRequest(SOCKET);
@@ -47,6 +47,8 @@ extern int SendResponse(SOCKET, RESPONSE*);
 extern void error_live(const char*);
 extern void error_die(const char*);
 extern void run();
+SOCKET tvSocket;
+
 //extern void run(char* ip, unsigned int* port, int* flag);
 
 

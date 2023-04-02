@@ -1,5 +1,4 @@
 #include "server.h"
-
 //void run(char* ip, unsigned int* port, int* flag)
 void run()
 {
@@ -13,11 +12,13 @@ void run()
 		error_die("WSAStartup()");
 
 	//Semaphore init:
-	m_semaphore = CreateSemaphore(NULL, 1, 1, NULL);
+	//int m_flag = 0;
+	//HANDLE m_semaphore;
+	/*m_semaphore = CreateSemaphore(NULL, 1, 1, NULL);
 	if (m_semaphore == NULL)
 	{
 		error_die("Error - Semaphore initailization failed.");
-	}
+	}*/
 
 	// Fill in the address structure
 	local.sin_family = AF_INET;
@@ -42,9 +43,11 @@ listen_goto:
 	int count = 0;
 
 
-	WaitForSingleObject(m_semaphore, INFINITE);
-	m_flag = 0; /////////////////
-	ReleaseSemaphore(m_semaphore, 1, NULL);
+
+
+	//WaitForSingleObject(m_semaphore, INFINITE);
+	//m_flag = 0; /////////////////
+	//ReleaseSemaphore(m_semaphore, 1, NULL);
 
 
 
@@ -68,12 +71,14 @@ listen_goto:
 		
 		if (request->type == POST)
 		{
+			closesocket(tvSocket);
+			
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 
 
-			WaitForSingleObject(m_semaphore, INFINITE);
-			m_flag = 1; //if flag is on, so the TV server need to restart itself, because ip and port updated.
-			ReleaseSemaphore(m_semaphore, 1, NULL);
+			//WaitForSingleObject(m_semaphore, INFINITE);
+			//m_flag = 1; //if flag is on, so the TV server need to restart itself, because ip and port updated.
+			//ReleaseSemaphore(m_semaphore, 1, NULL);
 		
 		}
 		else
