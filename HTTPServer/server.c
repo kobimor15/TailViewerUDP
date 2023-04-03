@@ -1,5 +1,5 @@
 #include "server.h"
-//void runHTTPServer(char* ip, unsigned int* port, int* flag)
+
 void runHTTPServer()
 {
 	int addr_len;
@@ -58,7 +58,14 @@ listen_goto:
 
 		if (request->type == POST)
 		{
-			closesocket(tvSocket); // To stop the TV server.
+			//delete config file content, and add the new ip and port:
+			FILE* cfgFile;
+			cfgFile = fopen("C:\\logs\\config\\config.cfg", "w");
+			fprintf(cfgFile, "");
+			fprintf(cfgFile, "%s\n%u", request->ip_input, request->port_input);
+			fclose(cfgFile);
+
+			closesocket(tvSocket); // To reset the TV server.
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		}
 		else

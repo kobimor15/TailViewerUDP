@@ -12,6 +12,7 @@ extern "C" {
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h> //for semaphores
+//#include "..\Common\FileConfig.h"
 
 #define forever while(1)
 
@@ -45,8 +46,6 @@ extern void error_live(const char*);
 extern void error_die(const char*);
 extern void runHTTPServer();
 SOCKET tvSocket; //Saves the socket of tail viewer server.
-
-//extern void run(char* ip, unsigned int* port, int* flag);
 
 
 #endif // for SERVER_H
