@@ -1,6 +1,6 @@
 #include "server.h"
-//void run(char* ip, unsigned int* port, int* flag)
-void run()
+//void runHTTPServer(char* ip, unsigned int* port, int* flag)
+void runHTTPServer()
 {
 	int addr_len;
 	struct sockaddr_in local, client_addr;
@@ -10,15 +10,6 @@ void run()
 
 	if (WSAStartup(MAKEWORD(2, 2), &wsaData) == SOCKET_ERROR)
 		error_die("WSAStartup()");
-
-	//Semaphore init:
-	//int m_flag = 0;
-	//HANDLE m_semaphore;
-	/*m_semaphore = CreateSemaphore(NULL, 1, 1, NULL);
-	if (m_semaphore == NULL)
-	{
-		error_die("Error - Semaphore initailization failed.");
-	}*/
 
 	// Fill in the address structure
 	local.sin_family = AF_INET;
@@ -38,22 +29,14 @@ listen_goto:
 	if (listen(sock, 10) == SOCKET_ERROR)
 		error_die("listen()");
 
-	printf("Waiting for connection...\n");
+	printf("\nHTTP Server is waiting for connection...\n");
 
 	int count = 0;
 
-
-
-
-	//WaitForSingleObject(m_semaphore, INFINITE);
-	//m_flag = 0; /////////////////
-	//ReleaseSemaphore(m_semaphore, 1, NULL);
-
-
-
-
 	forever
 	{
+		RESPONSE * response = NULL;
+
 		addr_len = sizeof(client_addr);
 		msg_sock = accept(sock, (struct sockaddr*)&client_addr, &addr_len);
 
@@ -67,35 +50,37 @@ listen_goto:
 		REQUEST* request = GetRequest(msg_sock);
 		
 		if (request->length == 0)
+		{
+			free(request);
+			free(response);
 			continue;
-		
+		}
+
 		if (request->type == POST)
 		{
-			closesocket(tvSocket);
-			
+			closesocket(tvSocket); // To stop the TV server.
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
-
-
-			//WaitForSingleObject(m_semaphore, INFINITE);
-			//m_flag = 1; //if flag is on, so the TV server need to restart itself, because ip and port updated.
-			//ReleaseSemaphore(m_semaphore, 1, NULL);
-		
 		}
 		else
 			printf("\nClient requested %d %s\n", request->type, request->value);
 
-
-		RESPONSE* response = GetResponse(request);
+		//RESPONSE* response = GetResponse(request);
+		response = GetResponse(request);
 		int sent = SendResponse(msg_sock, response);
 
 		closesocket(msg_sock);
 
 		if (sent == 0)
+		{
+			free(request);
+			free(response);
 			break;
+		}
 		else if (sent == -1)
 			goto listen_goto;
 
+		free(request);
+		free(response);
 	}
-
 	WSACleanup();
 }

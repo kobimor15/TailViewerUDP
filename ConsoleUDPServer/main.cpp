@@ -11,5 +11,6 @@ int main()
 {
 	TailViewerUDPServer tailViewerServer;
 	FileConfig fconfig = FileConfig();
-	tailViewerServer.runTailViewerServer(fconfig);
+	tailViewerServer.initTVServer(fconfig);
+	tailViewerServer.runTailViewerServer();
 }

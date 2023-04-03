@@ -28,7 +28,7 @@ namespace network
 	class EthernetDriver
 	{
 	public:
-		virtual bool initDriver(CommunicationInfo* commuInfo) = 0;
+		virtual bool initEthernetDriver(CommunicationInfo* commuInfo) = 0;
 		virtual std::string receiveMessage() = 0;
 
 		void closeSocket(SOCKET socket);

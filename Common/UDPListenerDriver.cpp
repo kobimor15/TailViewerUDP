@@ -2,7 +2,7 @@
 
 namespace network
 {
-	bool UDPListenerDriver::initDriver(CommunicationInfo* commuInfo)
+	bool UDPListenerDriver::initEthernetDriver(CommunicationInfo* commuInfo)
 	{
 		WSADATA wsaData;
 		if (WSAStartup(MAKEWORD(2, 0), &wsaData) != 0)
@@ -52,11 +52,10 @@ namespace network
 		if (n == SOCKET_ERROR)
 		{
 			int error = WSAGetLastError();
-			if (error == WSAEINTR)
+			if (error == WSAEINTR) //Means the socket closed - the recv call was interrupted
 			{
-				// The recv call was interrupted
 				printf("recv interrupted\n");
-				// TODO: reset tailviewer server. reread ip and port.
+				this->m_resetServer = true; // reset tailviewer server. reread ip and port.
 			}
 			else
 			{

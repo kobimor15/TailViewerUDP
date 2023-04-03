@@ -9,43 +9,23 @@
 
 using namespace tail_viewer;
 using namespace network;
-volatile bool g_interrupt_flag = false;
+
 volatile std::thread::id tailviewerThreadID;
 
-void runTailViewerServer()
+void runTVServer()
 {
 	TailViewerUDPServer tailViewerServer;
 	FileConfig fconfig = FileConfig();
-	tvSocket = tailViewerServer.init(fconfig);
+	tvSocket = tailViewerServer.initTVServer(fconfig);
 	tailViewerServer.runTailViewerServer();
 }
 
 int main()
 {
-	std::thread httpServerThread(run);
-	//TailViewerUDPServer tailViewerServer;
-	//FileConfig fconfig = FileConfig();
-	//tailViewerServer.runTailViewerServer(fconfig);
-
-	std::thread tailViewerServerThread(runTailViewerServer);
-	//tailviewerThreadID = tailViewerServerThread.get_id();
+	std::thread httpServerThread(runHTTPServer);
+	std::thread tailViewerServerThread(runTVServer);
 	while (true)
-	{
-		
+	{	
 	}
-	
-		
-	
-
-
-
-	
-	//int i = 0;
-	//while (true)
-	//{
-	//	if(i%10000000 == 0)
-	//		std::cout << i;
-	//	i++;
-	//}
 	return 0;
 }
