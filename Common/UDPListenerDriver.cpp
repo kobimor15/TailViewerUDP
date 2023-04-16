@@ -24,6 +24,7 @@ namespace network
 		int error_code;
 
 		/* Specify an address for the socket: */
+		//memset(&m_local_address, 0, sizeof(sockaddr_in));
 		m_local_address.sin_family = AF_INET; //for Ipv4
 		m_local_address.sin_port = htons(commuInfo->localPort);
 		error_code = inet_pton(AF_INET, commuInfo->localIP, &(m_local_address.sin_addr));

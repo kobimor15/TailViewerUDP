@@ -58,7 +58,7 @@ listen_goto:
 
 		if (request->type == POST)
 		{
-			//delete config file content, and add the new ip and port:
+			//Delete config file content, and add the new ip and port:
 			FILE* cfgFile;
 			cfgFile = fopen("C:\\logs\\config\\config.cfg", "w");
 			fprintf(cfgFile, "");
@@ -71,7 +71,6 @@ listen_goto:
 		else
 			printf("\nClient requested %d %s\n", request->type, request->value);
 
-		//RESPONSE* response = GetResponse(request);
 		response = GetResponse(request);
 		int sent = SendResponse(msg_sock, response);
 

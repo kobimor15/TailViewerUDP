@@ -11,8 +11,6 @@ extern "C" {
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <Windows.h> //for semaphores
-//#include "..\Common\FileConfig.h"
 
 #define forever while(1)
 
