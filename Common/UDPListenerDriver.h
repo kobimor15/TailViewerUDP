@@ -10,6 +10,6 @@ namespace network
 		std::string receiveMessage() override;
 
 		char buffer[BUFFER_SIZE];
-		bool m_resetServer = false;
+		bool m_resetServer = true;
 	};
 }
