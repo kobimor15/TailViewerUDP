@@ -43,6 +43,7 @@ extern int SendResponse(SOCKET, RESPONSE*);
 extern void error_live(const char*);
 extern void error_die(const char*);
 extern void runHTTPServer();
+extern void Reset();
 SOCKET tvSocket; //Saves the socket of tail viewer server.
 
 

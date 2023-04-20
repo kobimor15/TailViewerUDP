@@ -14,7 +14,8 @@ volatile std::thread::id tailviewerThreadID;
 
 void runTVServer()
 {
-	TailViewerUDPServer tailViewerServer;
+	TailViewerUDPServer tailViewerServer(tvSocket);
+	
 	tailViewerServer.runTailViewerServer();
 }
 

@@ -5,23 +5,27 @@ namespace tail_viewer
 	network::UDPListenerDriver udpListener;
 
 
-	bool TailViewerUDPServer::initTVServer(const IConfig& config, SOCKET& s) {
+	bool TailViewerUDPServer::initTVServer(const IConfig& config) {
 		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
 		bool valid = udpListener.initEthernetDriver(&cmi1);
 		if (!valid) {
-			s = 0;
+			tvSocket = 0;
 			return false;
 		}
-		s = udpListener.m_local_socket;
+		tvSocket = udpListener.m_local_socket;
 		return true;
 	}
 
-
+	void Reset() {
+		closesocket(udpListener.m_local_socket);
+	}
 	/*
 	while(true){
 				FileConfig fconfig = FileConfig();
 				valid = this->initTVServer(fconfig);
-				if(!valid) { sleep(1 sec) }
+				if(!valid) { 
+					sleep(1 sec) 
+					}
 				else{
 					break;
 				}
@@ -37,6 +41,7 @@ namespace tail_viewer
 			//Check if need to reset server
 			if (udpListener.m_resetServer)
 			{
+				//whileee
 				FileConfig fconfig = FileConfig();
 				this->initTVServer(fconfig);
 				cout << "Server was reseted.\n";
