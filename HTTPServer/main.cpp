@@ -10,12 +10,11 @@
 using namespace tail_viewer;
 using namespace network;
 
-volatile std::thread::id tailviewerThreadID;
+volatile std::thread::id tailviewerThreadID; //to stop this one using it's id??? still needed??
 
 void runTVServer()
 {
 	TailViewerUDPServer tailViewerServer(tvSocket);
-	
 	tailViewerServer.runTailViewerServer();
 }
 

@@ -65,8 +65,8 @@ listen_goto:
 			fprintf(cfgFile, "%s\n%u", request->ip_input, request->port_input);
 			fclose(cfgFile);
 
-			closesocket(tvSocket); // To reset the TV server.
-			Reset();
+			//closesocket(tvSocket); // To reset the TV server.
+			ResetTVServer();
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		}
 		else

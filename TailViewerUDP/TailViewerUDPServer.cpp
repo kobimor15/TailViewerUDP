@@ -1,49 +1,38 @@
 #include "TailViewerUDPServer.h"
+#include <thread> //for sleep
+#include <chrono> //for sleep
 
 namespace tail_viewer
 {
 	network::UDPListenerDriver udpListener;
 
-
-	bool TailViewerUDPServer::initTVServer(const IConfig& config) {
-		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
-		bool valid = udpListener.initEthernetDriver(&cmi1);
-		if (!valid) {
-			tvSocket = 0;
-			return false;
+	/* Implementation of the function that declared at: HTTPServer->server.h */
+	extern "C"
+	{
+		void ResetTVServer() {
+			closesocket(udpListener.m_local_socket);
 		}
-		tvSocket = udpListener.m_local_socket;
-		return true;
 	}
 
-	void Reset() {
-		closesocket(udpListener.m_local_socket);
-	}
-	/*
-	while(true){
-				FileConfig fconfig = FileConfig();
-				valid = this->initTVServer(fconfig);
-				if(!valid) { 
-					sleep(1 sec) 
-					}
-				else{
-					break;
-				}
-	}
-	
-	*/
+	/* Initializes TV server and runs it */
 	void TailViewerUDPServer::runTailViewerServer()
 	{		
 		FileManager logsFilesManager;
 
 		while (true)
 		{
-			//Check if need to reset server
+			//Check if need to reset server (at first time, get reset on default)
 			if (udpListener.m_resetServer)
 			{
-				//whileee
-				FileConfig fconfig = FileConfig();
-				this->initTVServer(fconfig);
+				while(true) ////ADDED WITH DOR
+				{
+					FileConfig fconfig = FileConfig();
+					bool initSucceeded = this->initTVServer(fconfig);
+					if (!initSucceeded)
+						std::this_thread::sleep_for(std::chrono::seconds(3));
+					else
+						break;
+				}
 				cout << "Server was reseted.\n";
 				udpListener.m_resetServer = false;
 				continue;
@@ -58,5 +47,17 @@ namespace tail_viewer
 			logsFilesManager.createLogFileDescriptor(rmtIP);
 			logsFilesManager.writeMessageToFile(msg, rmtIP);
 		}
+	}
+
+	/* Initializes ethernet driver, set 'tvSocket' and returns true if succeeded */
+	bool TailViewerUDPServer::initTVServer(const IConfig& config) {
+		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
+		bool valid = udpListener.initEthernetDriver(&cmi1);
+		if (!valid) {
+			*tvSocketLOC = INVALID_SOCKET;
+			return false;
+		}
+		*tvSocketLOC = udpListener.m_local_socket;
+		return true;
 	}
 }

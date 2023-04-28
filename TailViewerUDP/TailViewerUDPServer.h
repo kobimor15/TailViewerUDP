@@ -12,11 +12,13 @@ namespace tail_viewer
 	{
 	public:
 		TailViewerUDPServer(SOCKET& s) {
-			s = this->tvSocket;
+			this->tvSocketLOC = &s;
 		}
+	
 		bool initTVServer(const IConfig& config);
 		void runTailViewerServer();
+	
 	private:
-		SOCKET tvSocket;
+		SOCKET* tvSocketLOC;
 	};
 }

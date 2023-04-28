@@ -7,9 +7,11 @@
 using namespace tail_viewer;
 using namespace network;
 
+SOCKET tvSocketConsole;
+
 int main()
 {
-	TailViewerUDPServer tailViewerServer;
+	TailViewerUDPServer tailViewerServer(tvSocketConsole);
 	FileConfig fconfig = FileConfig();
 	tailViewerServer.initTVServer(fconfig);
 	tailViewerServer.runTailViewerServer();
