@@ -1,6 +1,6 @@
 #include "server.h"
 
-void updateHTMLFile(char* buf, char* data, char* type, char* newData);
+void updateHTMLFile(char* buf, char* data, char* nameOnHTML);
 
 char* get_full_path(char* name)
 {
@@ -74,51 +74,19 @@ int SendResponse(SOCKET sock, RESPONSE* response)
 		fgets(cfgFilePort, 10, cfgFile);
 		fclose(cfgFile);
 
-		//Add the code that updates the html content from the config.cfg file:
-		//char* HTML_IP = " value=\"ipvalue\"";
+
+		//Update the html content from the config.cfg file:
 		char* HTML_IP = "ipvalue";
-		//char* HTML_PORT = " value=\"portvalue\"";
 		char* HTML_PORT = "portvalue";
-		//char* newData = NULL;
-		//char* newData = buf;
-		char* newData = malloc(sizeof(char) * 1024);
-		strcpy(newData, buf);
-		//updateHTMLFile(buf, cfgFileIP, HTML_IP, newData);
-		updateHTMLFile(newData, cfgFileIP, HTML_IP, newData);
-		updateHTMLFile(newData, cfgFilePort, HTML_PORT, newData);
-		strcpy(buf, newData);
-
-		free(newData);
-		//updateHTMLFile(buf, cfgFilePort);
+		char* tempBuffer = malloc(sizeof(char) * 1024);
+		strcpy(tempBuffer, buf);
+		updateHTMLFile(tempBuffer, cfgFileIP, HTML_IP);
+		updateHTMLFile(tempBuffer, cfgFilePort, HTML_PORT);
+		strcpy(buf, tempBuffer);
+		free(tempBuffer);
 
 
-
-
-		//char* placeholder_start = strstr(buf, "<div id=\"data\"></div>");
-		//if (placeholder_start != NULL) {
-		//    //char* data = cfgFileIP;
-		//    char* placeholder_end = placeholder_start + strlen("<div id=\"data\"></div>");
-		//    size_t prefix_size = placeholder_start - buf;
-		//    size_t suffix_size = strlen(placeholder_end);
-		//    size_t data_size = strlen(cfgFileIP);
-		//    char* new_data = (char*)malloc(prefix_size + data_size + suffix_size + 1);
-		//    memcpy(new_data, buf, prefix_size);
-		//    memcpy(new_data + prefix_size, cfgFileIP, data_size);
-		//    memcpy(new_data + prefix_size + data_size, placeholder_end, suffix_size + 1);
-		//    http_response_set_content_type(response, "text/html");
-		//    http_response_set_body(response, new_data, prefix_size + data_size + suffix_size);
-		//    free(new_data);
-		//}
-		//else {
-		//    printf("Error - html file is not as expected...\n");
-		//    getchar();
-		//    exit(1);
-		//    /*http_response_set_status(response, HTTP_STATUS_INTERNAL_SERVER_ERROR);*/
-		//}
-
-
-
-
+		//Send the response:
 		msg_len = send(sock, buf, result, 0);
 
 		if (msg_len == SOCKET_ERROR) {
@@ -141,35 +109,22 @@ int SendResponse(SOCKET sock, RESPONSE* response)
 	return 1;
 }
 
-void updateHTMLFile(char* buf, char* data, char* type, char* newData)
+void updateHTMLFile(char* buf, char* data, char* nameOnHTML)
 {
-	//char* placeholder_start = strstr(buf, "<div id=\"data\"></div>");
-	char* placeholder_start = strstr(buf, type);
+	char* placeholder_start = strstr(buf, nameOnHTML);
 	if (placeholder_start != NULL) {
-		//char* data = cfgFileIP;
-		//char* placeholder_end = placeholder_start + strlen("<div id=\"data\"></div>");
-		char* placeholder_end = placeholder_start + strlen(type);
+		char* placeholder_end = placeholder_start + strlen(nameOnHTML);
 		size_t prefix_size = placeholder_start - buf;
-		//size_t prefix_size = placeholder_start - strlen(buf);
 		size_t suffix_size = strlen(placeholder_end);
 		size_t data_size = strlen(data);
 		char* new_data = (char*)malloc(prefix_size + data_size + suffix_size + 1);
-		//memcpy(new_data, buf, prefix_size);
 		memcpy(new_data, buf, prefix_size);
 		memcpy(new_data + prefix_size, data, data_size);
 		memcpy(new_data + prefix_size + data_size, placeholder_end, suffix_size + 1);
-		//http_response_set_content_type(response, "text/html");
-		//http_response_set_body(response, new_data, prefix_size + data_size + suffix_size);
-
-		strcpy(newData, new_data);
+		strcpy(buf, new_data);
 		free(new_data);
-		//return newData;
 	}
 	else {
 		///DO NOTHING
-		//printf("Error - html file is not as expected...\n");
-		//getchar();
-		//exit(1);
-		/*http_response_set_status(response, HTTP_STATUS_INTERNAL_SERVER_ERROR);*/
 	}
 }
