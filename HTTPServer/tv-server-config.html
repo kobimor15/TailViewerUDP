@@ -17,7 +17,6 @@ p {
 	font-family: arial;
 	margin: 20px;
 }
-
 </style>
 
 <head><title>TailViewer server config</title></head>
@@ -31,23 +30,14 @@ p {
  <form action="tv-server-response.html" method="post" autocomplete="on">
 	<label for="ip">Server IP:</label>
 	<br>
-	<input type="text" id="ip" name="ip" pattern="^[a-zA-Z0-9\.]*$" placeholder="Enter IP" title="Server IP" required autofocus>
+	<input type="text" id="ip" name="ip" pattern="^[a-zA-Z0-9\.]*$" value="ipvalue" title="Server IP" required autofocus>
 	<br><br>
 	<label for="port">Server port:</label>
 	<br>
-	<input type="text" id="port" name="port" pattern="^[a-zA-Z0-9\.]*$" placeholder="Enter port" title="Server port" required>
+	<input type="text" id="port" name="port" pattern="^[a-zA-Z0-9\.]*$" value="portvalue" title="Server port" required>
 	<br><br>
 	<input type="submit" value="Set Address" title="Set server address">
 </form> 
-
-
-<!--
-
-<p>Type the server IP:</p>
-
-<p>Type the server port:</p>
-
--->
 
 </body>
 </html>
