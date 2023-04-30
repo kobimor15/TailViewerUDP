@@ -24,18 +24,18 @@ namespace network
 
 	};
 
-	/* ---------- EthernetDriver Class ---------- */
+	/* --------- EthernetDriver Class --------- */
 	class EthernetDriver
 	{
 	public:
-		virtual bool initDriver(CommunicationInfo& commuInfo) = 0;
+		virtual bool initEthernetDriver(CommunicationInfo& commuInfo) = 0;
 		virtual std::string receiveMessage() = 0;
 
 		void closeSocket(SOCKET socket);
 		std::string getRemoteIP() const;
+		SOCKET m_local_socket = INVALID_SOCKET;
 		
 	protected:
-		SOCKET m_local_socket = INVALID_SOCKET;
 		struct sockaddr_in m_local_address;
 		struct sockaddr_in m_remote_address;
 	};

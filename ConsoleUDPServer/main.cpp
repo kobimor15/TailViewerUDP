@@ -1,15 +1,18 @@
 #include <iostream>
-#include "..\TailViewerUDP\TailViewerUDPServer.h"
 //#include "TailViewerUDPServer.h"
-#include "..\TailViewerUDP\FileManager.h"
+#include "../TailViewerUDP/TailViewerUDPServer.h"
 //#include <FileManager.h>
+#include "../TailViewerUDP/FileManager.h"
 
 using namespace tail_viewer;
 using namespace network;
 
+SOCKET tvSocketConsole;
+
 int main()
 {
-	TailViewerUDPServer tailViewerServer;
+	TailViewerUDPServer tailViewerServer(tvSocketConsole);
 	FileConfig fconfig = FileConfig();
-	tailViewerServer.runTailViewerServer(fconfig);
+	tailViewerServer.initTVServer(fconfig);
+	tailViewerServer.runTailViewerServer();
 }
