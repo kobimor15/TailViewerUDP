@@ -21,12 +21,17 @@ namespace tail_viewer
 
 		while (true)
 		{
-			//Check if need to reset server (at first time, get reset on default)
+			//Checks if need to reset server (at first time, get reset on default)
 			if (udpListener.m_resetServer)
 			{
-				while(true) ////ADDED WITH DOR
+				while(true)
 				{
 					FileConfig fconfig = FileConfig();
+					if (!fconfig.initFileConfig())
+					{
+						std::this_thread::sleep_for(std::chrono::seconds(3));
+						continue;
+					}
 					bool initSucceeded = this->initTVServer(fconfig);
 					if (!initSucceeded)
 						std::this_thread::sleep_for(std::chrono::seconds(3));
@@ -51,8 +56,8 @@ namespace tail_viewer
 
 	/* Initializes ethernet driver, set 'tvSocket' and returns true if succeeded */
 	bool TailViewerUDPServer::initTVServer(const IConfig& config) {
-		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.get_TVserver_ip(), config.get_TVserver_port());
-		bool valid = udpListener.initEthernetDriver(&cmi1);
+		network::CommunicationInfo cmi1 = network::CommunicationInfo(config.getTVserverIP(), config.getTVserverPort());
+		bool valid = udpListener.initEthernetDriver(cmi1);
 		if (!valid) {
 			*tvSocketLOC = INVALID_SOCKET;
 			return false;

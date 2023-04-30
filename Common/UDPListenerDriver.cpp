@@ -16,9 +16,10 @@ namespace network
 		m_local_socket = socket(AF_INET, SOCK_DGRAM, 0);
 		if (m_local_socket == INVALID_SOCKET)
 		{
-			std::cout << "Error - WSAStartup failed. Error:" << WSAGetLastError() << "\n";
-			getchar();
-			exit(1);
+			std::cout << "Error - WSAStartup failed. Error num:" << WSAGetLastError() << "\n";
+			//getchar();
+			//exit(1);
+			return false;
 		}
 
 		int error_code;
@@ -31,16 +32,17 @@ namespace network
 		error_code = inet_pton(AF_INET, local_IP.c_str(), &(m_local_address.sin_addr));
 		if (error_code <= 0)
 		{
-			std::cout << "Error - failed to convert ip address to struct in_addr. Error:" << WSAGetLastError() << "\n";
-			getchar();
-			exit(1);
+			std::cout << "Error - failed to convert ip address to struct in_addr. Error num:" << WSAGetLastError() << "\n";
+			//getchar();
+			//exit(1);
+			return false;
 		}
 
 		/* Bind: */
 		error_code = bind(m_local_socket, (struct sockaddr*)&m_local_address, sizeof(m_local_address));
 		if (error_code == -1)
 		{
-			std::cout << "Error - bind failed. Error:" << WSAGetLastError() << "\n";
+			std::cout << "Error - bind failed. Error num:" << WSAGetLastError() << "\n";
 			//getchar();
 			//exit(1);
 			return false;
