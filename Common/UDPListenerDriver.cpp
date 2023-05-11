@@ -17,15 +17,12 @@ namespace network
 		if (m_local_socket == INVALID_SOCKET)
 		{
 			std::cout << "Error - WSAStartup failed. Error num:" << WSAGetLastError() << "\n";
-			//getchar();
-			//exit(1);
 			return false;
 		}
 
 		int error_code;
 
 		/* Specify an address for the socket: */
-		//memset(&m_local_address, 0, sizeof(sockaddr_in));
 		m_local_address.sin_family = AF_INET; //for Ipv4
 		m_local_address.sin_port = htons(commuInfo.localPort);
 		std::string local_IP = commuInfo.localIP;
@@ -33,8 +30,6 @@ namespace network
 		if (error_code <= 0)
 		{
 			std::cout << "Error - failed to convert ip address to struct in_addr. Error num:" << WSAGetLastError() << "\n";
-			//getchar();
-			//exit(1);
 			return false;
 		}
 
@@ -43,8 +38,6 @@ namespace network
 		if (error_code == -1)
 		{
 			std::cout << "Error - bind failed. Error num:" << WSAGetLastError() << "\n";
-			//getchar();
-			//exit(1);
 			return false;
 		}
 		return true;
@@ -60,13 +53,12 @@ namespace network
 			int error = WSAGetLastError();
 			if (error == WSAEINTR) //Means the socket closed - the recv call was interrupted
 			{
-				printf("recv interrupted\n");
+				std::cout << "recv interrupted\n";
 				this->m_resetServer = true; // reset tailviewer server. reread ip and port.
 			}
-			else
+			else // Handle other errors
 			{
-				// Handle other errors
-				printf("recv error %d\n", error);
+				std::cout << "recv error" << error << "\n";
 			}
 		}
 		buffer[n] = '\0';

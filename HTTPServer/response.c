@@ -100,7 +100,6 @@ int SendResponse(SOCKET sock, RESPONSE* response)
 			printf("Client closed connection\n");
 			closesocket(sock);
 			return 0;
-			//WSACleanup();
 		}
 	}
 
@@ -123,8 +122,5 @@ void updateHTMLFile(char* buf, char* data, char* nameOnHTML)
 		memcpy(new_data + prefix_size + data_size, placeholder_end, suffix_size + 1);
 		strcpy(buf, new_data);
 		free(new_data);
-	}
-	else {
-		///DO NOTHING
 	}
 }

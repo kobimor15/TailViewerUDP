@@ -13,7 +13,6 @@ namespace network_config
 	class FileConfig : public IConfig
 	{
 	public:
-		//FileConfig();
 		FileConfig() = default;
 		bool initFileConfig();
 		std::string getTVserverIP() const override;
