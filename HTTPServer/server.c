@@ -29,7 +29,7 @@ listen_goto:
 	if (listen(sock, 10) == SOCKET_ERROR)
 		error_die("listen()");
 
-	printf("\nHTTP Server is waiting for connection...\n");
+	printf("HTTP Server is waiting for connection...\n");
 
 	int count = 0;
 
@@ -65,7 +65,6 @@ listen_goto:
 			fprintf(cfgFile, "%s\n%u", request->ip_input, request->port_input);
 			fclose(cfgFile);
 
-			//closesocket(tvSocket); // To reset the TV server.
 			ResetTVServer();
 			printf("\nReceived from client: IP = %s , port = %u\n", request->ip_input, request->port_input);
 		}
