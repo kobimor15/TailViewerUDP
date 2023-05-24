@@ -13,7 +13,7 @@ void runHTTPServer()
 
 	// Fill in the address structure
 	local.sin_family = AF_INET;
-	local.sin_addr.s_addr = INADDR_ANY;
+	local.sin_addr.s_addr = INADDR_ANY; //Local ip
 	local.sin_port = htons(DEFAULT_PORT);
 
 	sock = socket(AF_INET, SOCK_STREAM, 0);

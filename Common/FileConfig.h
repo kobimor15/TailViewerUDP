@@ -9,7 +9,8 @@
 namespace network_config
 {
 	const std::string configFileDefaultPath = "C:\\logs\\config\\config.cfg";
-	
+	const std::string DEFAULT_PORT = "8210";
+
 	class FileConfig : public IConfig
 	{
 	public:

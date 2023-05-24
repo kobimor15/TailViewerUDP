@@ -1,7 +1,51 @@
 #include "FileConfig.h"
+#include <winsock2.h> //To get local pc's ip
+#include <ws2tcpip.h> //To get local pc's ip
 
 namespace network_config
 {
+	// This function gets the local PC's ip, if it's not written in config.cfg file.
+	std::string get_local_ip() {
+		WSADATA wsaData;
+		if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+			std::cerr << "WSAStartup failed.\n";
+			return "error";
+		}
+
+		char hostname[256];
+		if (gethostname(hostname, sizeof(hostname)) == SOCKET_ERROR) {
+			std::cerr << "Failed to get the hostname.\n";
+			WSACleanup();
+			return "error";
+		}
+
+		struct addrinfo* result = nullptr;
+		struct addrinfo* ptr = nullptr;
+		struct addrinfo hints;
+		ZeroMemory(&hints, sizeof(hints));
+		hints.ai_family = AF_INET;
+		hints.ai_socktype = SOCK_STREAM;
+		hints.ai_protocol = IPPROTO_TCP;
+
+		if (getaddrinfo(hostname, nullptr, &hints, &result) != 0) {
+			std::cerr << "Failed to get the address info.\n";
+			WSACleanup();
+			return "error";
+		}
+
+		for (ptr = result; ptr != nullptr; ptr = ptr->ai_next) {
+			char ipAddr[INET_ADDRSTRLEN];
+			struct sockaddr_in* sockaddr = reinterpret_cast<struct sockaddr_in*>(ptr->ai_addr);
+			const char* ipAddress = inet_ntop(AF_INET, &(sockaddr->sin_addr), ipAddr, INET_ADDRSTRLEN);
+			if (ipAddress != nullptr) {
+				return ipAddress;
+				break;
+			}
+		}
+		freeaddrinfo(result);
+		WSACleanup();
+	}
+
 	bool FileConfig::initFileConfig()
 	{
 		std::ifstream configFile(configFileDefaultPath);
@@ -10,6 +54,25 @@ namespace network_config
 		{
 			getline(configFile, m_serverIP);
 			getline(configFile, serverPortString);
+			if (m_serverIP == "") //If the file is empty, get the current PC's ip, and put default port.
+			{
+				//Open config.cfg file for write:
+				std::ofstream configFileForWrite(configFileDefaultPath, std::ios::app);
+				if (!configFileForWrite.is_open()) {
+					std::cerr << "Failed to open the file for writing." << std::endl;
+					return false;
+				}
+				//Write local PC's ip and default port in it:
+				m_serverIP = get_local_ip();
+				if (m_serverIP == "error")
+				{
+					std::cout << "Error - can't get the current PC's ip. enter it manually in config.cfg file.";
+				}
+				configFileForWrite << m_serverIP << std::endl;
+				serverPortString = DEFAULT_PORT;
+				configFileForWrite << serverPortString;
+				configFileForWrite.close();
+			}
 			if (serverPortString.find_first_not_of("0123456789") != std::string::npos)
 			{
 				std::cout << "Error - port not made of digits only. Try to edit port.\n";
