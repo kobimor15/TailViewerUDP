@@ -8,18 +8,13 @@
 using namespace tail_viewer;
 using namespace network;
 
-void runTVServer()
-{
-	TailViewerUDPServer tailViewerServer(tvSocket);
-	tailViewerServer.runTailViewerServer();
-}
-
 int main()
 {
 	std::thread httpServerThread(runHTTPServer);
-	std::thread tailViewerServerThread(runTVServer);
 	while (true)
 	{	
+		TailViewerUDPServer tailViewerServer(tvSocket);
+		tailViewerServer.runTailViewerServer();
 	}
 	return 0;
 }
