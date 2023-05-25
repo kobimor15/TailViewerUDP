@@ -15,27 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EthernetDriver.cpp">
+    <ClCompile Include="defaults.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UDPListenerDriver.cpp">
+    <ClCompile Include="error.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileConfig.cpp">
+    <ClCompile Include="request.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="response.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="server.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="header.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EthernetDriver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IConfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UDPListenerDriver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="FileConfig.h">
+    <ClInclude Include="server.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
