@@ -46,7 +46,11 @@ namespace network_config
 
 	bool createNewConfigFile()
 	{
-		//Open config.cfg file for write:
+		//Open directories and new config.cfg file for write:
+		std::stringstream createPathString;
+		/////////////////////////////////////////////////////////createPathString << logFileDefaultPath;
+		fs::create_directories(createPathString.str());
+
 		std::ofstream configFileForWrite(configFileDefaultPath, std::ios::app);
 		if (!configFileForWrite.is_open()) {
 			std::cout << "Error - Failed to open the file for writing." << std::endl;

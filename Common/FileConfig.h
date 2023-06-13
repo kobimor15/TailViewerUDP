@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 
+namespace fs = std::filesystem;
 namespace network_config
 {
 	const std::string configFileDefaultPath = "C:\\logs\\config\\config.cfg";

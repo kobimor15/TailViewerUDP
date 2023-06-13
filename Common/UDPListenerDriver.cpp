@@ -37,7 +37,7 @@ namespace network
 		error_code = bind(m_local_socket, (struct sockaddr*)&m_local_address, sizeof(m_local_address));
 		if (error_code == -1)
 		{
-			std::cout << "Error - bind failed. Error num:" << WSAGetLastError() << "\n";
+			std::cout << "Error - bind failed. Error num:" << WSAGetLastError() << ". Check IP correction.\n";
 			return false;
 		}
 		return true;
